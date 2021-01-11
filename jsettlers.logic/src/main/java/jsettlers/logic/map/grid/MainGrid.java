@@ -122,7 +122,6 @@ import jsettlers.logic.movable.Movable;
 import jsettlers.logic.movable.interfaces.AbstractMovableGrid;
 import jsettlers.logic.movable.interfaces.IAttackable;
 import jsettlers.logic.movable.interfaces.IAttackableMovable;
-import jsettlers.logic.movable.interfaces.ICivilianMovable;
 import jsettlers.logic.movable.interfaces.IFerryMovable;
 import jsettlers.logic.movable.interfaces.ILogicMovable;
 import jsettlers.logic.movable.interfaces.ISoldierMovable;
@@ -171,6 +170,8 @@ public final class MainGrid implements Serializable {
 
 		this.flagsGrid = new FlagsGrid(width, height);
 		this.movablePathfinderGrid = new MovablePathfinderGrid();
+		// prevents StackOverflowErrors
+		ArrowObject.class.getSimpleName();
 		MapObjectsManagerGrid grid = new MapObjectsManagerGrid();
 		this.mapObjectsManager = new MapObjectsManager(grid);
 
