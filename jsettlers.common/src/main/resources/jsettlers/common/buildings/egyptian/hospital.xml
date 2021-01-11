@@ -83,8 +83,8 @@
 
 	<door dx="2" dy="2" />
 
-	<constructionStack dx="2" dy="3" material="PLANK" buildrequired="1" />
-	<constructionStack dx="4" dy="3" material="STONE" buildrequired="1" />
+	<constructionStack dx="2" dy="3" material="PLANK" buildrequired="2" />
+	<constructionStack dx="4" dy="3" material="STONE" buildrequired="4" />
 
 	<bricklayer dx="-1" dy="2" direction="NORTH_EAST" />
 	<bricklayer dx="1" dy="4" direction="NORTH_EAST" />
@@ -100,9 +100,9 @@
 	<buildmark dx="-3" dy="-1" />
 	<buildmark dx="-3" dy="-5" />
 
-	<image file="14" for="GUI" type="GUI" sequence="93" image="0"/>
-	<image file="13" for="FINAL" type="SETTLER" sequence="29" image="0"/>
-	<image file="13" for="BUILD" type="SETTLER" sequence="29" image="1"/>
+	<image file="24" for="GUI" type="GUI" sequence="87" image="0"/>
+	<image file="23" for="FINAL" type="SETTLER" sequence="29" image="0"/>
+	<image file="23" for="BUILD" type="SETTLER" sequence="29" image="1"/>
 
 	<startjob name="gohome"/>
 

@@ -94,8 +94,8 @@
 	
 	<door dx="-1" dy="2" />
 	
-	<constructionStack dx="2" dy="5" material="PLANK" buildrequired="1" />
-	<constructionStack dx="4" dy="5" material="STONE" buildrequired="1" />
+	<constructionStack dx="2" dy="5" material="PLANK" buildrequired="2" />
+	<constructionStack dx="4" dy="5" material="STONE" buildrequired="6" />
 	<requestStack dx="4" dy="3" material="PIG" />
 	
 	<bricklayer dx="-3" dy="1" direction="NORTH_EAST" />
@@ -113,9 +113,9 @@
 	<buildmark dx="7" dy="6" />
 	<buildmark dx="5" dy="2" />
 
-	<image file="14" for="GUI" type="GUI" sequence="12" image="0"/>
-	<image file="13" for="FINAL" type="SETTLER" sequence="13" image="0"/>
-	<image file="13" for="BUILD" type="SETTLER" sequence="13" image="1"/>
+	<image file="24" for="GUI" type="GUI" sequence="12" image="0"/>
+	<image file="23" for="FINAL" type="SETTLER" sequence="23" image="0"/>
+	<image file="23" for="BUILD" type="SETTLER" sequence="23" image="1"/>
 
 	<!-- drop stack for meat: 1, 4 -->
 	<startjob name="gohome"/>

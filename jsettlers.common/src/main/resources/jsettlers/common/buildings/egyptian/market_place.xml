@@ -60,8 +60,8 @@
 
 	<door dx="2" dy="3" />
 
-	<constructionStack dx="0" dy="3" material="PLANK" buildrequired="1" />
-	<constructionStack dx="2" dy="3" material="STONE" buildrequired="3" />
+	<constructionStack dx="0" dy="3" material="PLANK" buildrequired="0" />
+	<constructionStack dx="2" dy="3" material="STONE" buildrequired="4" />
 	
 	<requestStack dx="-2" dy="0" material="NO_MATERIAL" />
 	<requestStack dx="0" dy="2" material="NO_MATERIAL" />
@@ -84,9 +84,9 @@
 	<buildmark dx="3" dy="0" />
 	<buildmark dx="0" dy="-3" />
 
-	<image file="14" for="GUI" type="GUI" sequence="99" image="0" />
-	<image file="13" for="FINAL" type="SETTLER" sequence="28" image="0" />
-	<image file="13" for="FINAL" type="SETTLER" sequence="28" image="1" />
-	<image file="13" for="BUILD" type="SETTLER" sequence="28" image="2" />
-	<image file="13" for="BUILD" type="SETTLER" sequence="28" image="3" />
+	<image file="24" for="GUI" type="GUI" sequence="93" image="0" />
+	<image file="23" for="FINAL" type="SETTLER" sequence="28" image="0" />
+	<image file="23" for="FINAL" type="SETTLER" sequence="28" image="1" />
+	<image file="23" for="BUILD" type="SETTLER" sequence="28" image="2" />
+	<image file="23" for="BUILD" type="SETTLER" sequence="28" image="3" />
 </building>

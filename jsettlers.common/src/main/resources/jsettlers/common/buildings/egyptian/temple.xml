@@ -86,8 +86,8 @@
 	<!-- door position is used as position for the wine bowl map object -->
 	<door dx="3" dy="2" />
 	
-	<constructionStack dx="1" dy="6" material="PLANK" buildrequired="5" />
-	<constructionStack dx="3" dy="7" material="STONE" buildrequired="8" />
+	<constructionStack dx="1" dy="6" material="PLANK" buildrequired="2" />
+	<constructionStack dx="3" dy="7" material="STONE" buildrequired="10" />
 	<requestStack dx="7" dy="5" material="WINE" />
 	
 	<bricklayer dx="-2" dy="3" direction="NORTH_EAST" />
@@ -106,9 +106,8 @@
 	<buildmark dx="1" dy="-1" />
 	<buildmark dx="5" dy="6" />
 
-	<image file="14" type="GUI" for="GUI" image="0" sequence="102" />
-	<image file="13" type="SETTLER" for="FINAL" image="0" sequence="31" />
-	<image file="13" type="SETTLER" for="BUILD" image="1" sequence="31" />
-	<image file="13" type="SETTLER" for="FINAL" image="2" sequence="31" />
+	<image file="24" type="GUI" for="GUI" image="0" sequence="105" />
+	<image file="23" type="SETTLER" for="FINAL" image="0" sequence="32" />
+	<image file="23" type="SETTLER" for="BUILD" image="1" sequence="32" />
 
 </building>

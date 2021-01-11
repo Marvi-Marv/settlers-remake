@@ -61,8 +61,8 @@
     <door dx="-1" dy="2" />
    
     <!-- materials checked with original -->
-    <constructionStack dx="0" dy="4" material="PLANK" buildrequired="5" />
-    <constructionStack dx="2" dy="4" material="STONE" buildrequired="1" />
+    <constructionStack dx="0" dy="4" material="PLANK" buildrequired="4" />
+    <constructionStack dx="2" dy="4" material="STONE" buildrequired="2" />
     
     <requestStack dx="4" dy="2" material="BREAD" />
     <requestStack dx="3" dy="3" material="MEAT" />
@@ -83,9 +83,9 @@
     <buildmark dx="-2" dy="1" />
     <buildmark dx="-2" dy="-2" />
 
-    <image file="14" for="GUI" type="GUI" sequence="48" image="0" />
-    <image file="13" for="FINAL" type="SETTLER" sequence="5" image="0" />
-    <image file="13" for="BUILD" type="SETTLER" sequence="5" image="1" />
+    <image file="24" for="GUI" type="GUI" sequence="48" image="0" />
+    <image file="23" for="FINAL" type="SETTLER" sequence="5" image="0" />
+    <image file="23" for="BUILD" type="SETTLER" sequence="5" image="1" />
 
     
     <!-- start with going home -->

@@ -1,5 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- EGYPTIAN Building TODOS:
+- check mill rotator
+- create brewery building
+- change temple goods mana ressources
+- add Ballistenwerkstatt
+- adjust dx/dy with BuildingCreatorApp
+- what is lagerhaus?
+-->
+
 <!ENTITY % imagelinktype "(SETTLER| GUI| LANDSCAPE)">
 
 <!ENTITY % material "(

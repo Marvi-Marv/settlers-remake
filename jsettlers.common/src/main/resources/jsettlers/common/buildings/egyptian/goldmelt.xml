@@ -82,8 +82,8 @@
 
 	<door dx="2" dy="1" />
 
-	<constructionStack dx="1" dy="5" material="PLANK" buildrequired="5" />
-	<constructionStack dx="3" dy="5" material="STONE" buildrequired="4" />
+	<constructionStack dx="1" dy="5" material="PLANK" buildrequired="3" />
+	<constructionStack dx="3" dy="5" material="STONE" buildrequired="7" />
 
 	<requestStack dx="-3" dy="2" material="COAL" />
 	<requestStack dx="3" dy="3" material="GOLDORE" />
@@ -104,9 +104,9 @@
 	<buildmark dx="2" dy="-1" />
 	<buildmark dx="1" dy="2" />
 
-	<image file="14" for="GUI" type="GUI" sequence="21" image="0"/>
-    <image file="13" type="SETTLER" for="FINAL" image="0" sequence="8"/>
-    <image file="13" type="SETTLER" for="BUILD" image="1" sequence="8"/>
+	<image file="24" for="GUI" type="GUI" sequence="21" image="0"/>
+    <image file="23" type="SETTLER" for="FINAL" image="0" sequence="8"/>
+    <image file="23" type="SETTLER" for="BUILD" image="1" sequence="8"/>
 
 	<startjob name="gohome" />
 
