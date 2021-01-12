@@ -736,6 +736,13 @@ public abstract class Building extends AbstractHexMapObject implements IConstruc
 		case WATERWORKS:
 		case WINEGROWER:
 		case HOSPITAL:
+		case BREWERY:
+		case GUNPOWDER_MAKER:
+		case DISTILLERY:
+		case RICE_FARM:
+		case BEEKEEPERS_HUT:
+		case MEADMAKERS_HUT:
+		case ALCHEMISTS_DEN:
 			return new WorkerBuilding(type, player, position, buildingsGrid);
 
 		case DOCKYARD:

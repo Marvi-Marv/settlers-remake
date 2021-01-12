@@ -143,7 +143,7 @@
 	<buildmark dx="6" dy="2" />
 	<buildmark dx="-2" dy="-4" />
 
-	<image file="24" for="GUI" type="GUI" sequence="87" image="0"/>
+	<image file="24" for="GUI" type="GUI" sequence="81" image="0"/>
 	<image file="23" for="FINAL" type="SETTLER" sequence="35" image="0"/>
 	<image file="23" for="BUILD" type="SETTLER" sequence="35" image="1"/>
 

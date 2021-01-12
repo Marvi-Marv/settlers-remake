@@ -22,6 +22,7 @@ import jsettlers.common.buildings.EBuildingType;
 
 /**
  * Created by Andreas Eberle on 02.05.2017.
+ * Extended by MarviMarv on 12.01.2020.
  */
 public enum EBuildingsCategory {
 	BUILDINGS_CATEGORY_NORMAL(
@@ -37,7 +38,8 @@ public enum EBuildingsCategory {
 			EBuildingType.TOOLSMITH,
 			EBuildingType.CHARCOAL_BURNER,
 			EBuildingType.SULFURMINE,
-			EBuildingType.GEMSMINE),
+			EBuildingType.GEMSMINE,
+			EBuildingType.GUNPOWDER_MAKER),
 	BUILDINGS_CATEGORY_FOOD(
 			EBuildingType.FISHER,
 			EBuildingType.FARM,
@@ -47,7 +49,12 @@ public enum EBuildingsCategory {
 			EBuildingType.BAKER,
 			EBuildingType.WATERWORKS,
 			EBuildingType.DONKEY_FARM,
-			EBuildingType.WINEGROWER),
+			EBuildingType.WINEGROWER,
+			EBuildingType.BREWERY,
+			EBuildingType.DISTILLERY,
+			EBuildingType.RICE_FARM,
+			EBuildingType.BEEKEEPERS_HUT,
+			EBuildingType.MEADMAKERS_HUT),
 	BUILDINGS_CATEGORY_MILITARY(
 			EBuildingType.TOWER,
 			EBuildingType.BIG_TOWER,
@@ -56,7 +63,8 @@ public enum EBuildingsCategory {
 			EBuildingType.WEAPONSMITH,
 			EBuildingType.BARRACK,
 			EBuildingType.DOCKYARD,
-			EBuildingType.HOSPITAL),
+			EBuildingType.HOSPITAL,
+			EBuildingType.CATAPULT_HALL),
 	BUILDINGS_CATEGORY_SOCIAL(
 			EBuildingType.SMALL_LIVINGHOUSE,
 			EBuildingType.MEDIUM_LIVINGHOUSE,
@@ -65,7 +73,8 @@ public enum EBuildingsCategory {
 			EBuildingType.MARKET_PLACE,
 			EBuildingType.HARBOR,
 			EBuildingType.TEMPLE,
-			EBuildingType.BIG_TEMPLE);
+			EBuildingType.BIG_TEMPLE,
+			EBuildingType.ALCHEMISTS_DEN);
 
 	public static final EBuildingsCategory[] VALUES = values();
 	public static final int NUMBER_OF_VALUES = VALUES.length;

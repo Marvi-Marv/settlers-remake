@@ -66,7 +66,11 @@ public final class ImageProvider {
 
 	private static final String FILE_PREFIX = "siedler3_";
 	private static final int LAST_SEQUENCE_NUMBER = 2;
-	private static final List<Integer> HIGHRES_IMAGE_FILE_NUMBERS = Arrays.asList(3, 14);
+
+	/**
+	 * array references to the original s3 gfx file numbers (type GUI). HIGHRES = same image content in three different resolutions
+	 */
+	private static final List<Integer> HIGHRES_IMAGE_FILE_NUMBERS = Arrays.asList(3, 14, 24, 34, 44);
 
 	/**
 	 * The lookup path for the dat files.
