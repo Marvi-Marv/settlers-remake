@@ -20,6 +20,7 @@ import jsettlers.common.images.EImageLinkType;
 import jsettlers.common.images.ImageLink;
 import jsettlers.common.images.OriginalImageLink;
 import jsettlers.common.images.TextureMap;
+import jsettlers.common.player.ECivilisation;
 import jsettlers.graphics.image.Image;
 import jsettlers.graphics.image.ImageIndexFile;
 import jsettlers.graphics.image.SingleImage;
@@ -50,9 +51,19 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  * <p>
  * Settlers supports two image modes, one rgb mode (555 bits) and one rgb mode (565 bits).
  *
- * @author michael
+ * @author michael, MarviMarv
  */
 public final class ImageProvider {
+	/**
+	 * lets make this class a real provider
+	 */
+	// private final static int[] CIVILISATION = {0, 1, 2, 3}; //roman, egyptian, asian, amazon
+	private final static int[] BUILDING_BUILD_GFX_FILE = {13, 23, 33, 43};
+	private final static int[] BUILDING_MENU_GFX_FILE = {14, 24, 34, 44};
+
+	private final static int[] MILL_SEQUENCE = {14, 21, 20, 19}; //2 images
+	private final static int[] MILL_ROTATION_SEQUENCE = {15, 22, 21, 20}; //12 images
+
 	private static final String FILE_PREFIX = "siedler3_";
 	private static final int LAST_SEQUENCE_NUMBER = 2;
 	private static final List<Integer> HIGHRES_IMAGE_FILE_NUMBERS = Arrays.asList(3, 14);
@@ -333,5 +344,28 @@ public final class ImageProvider {
 	 */
 	public void addPreloadTask(GLPreloadTask task) {
 		tasks.add(task);
+	}
+
+	/**
+	 * lets make this class a real provider
+	 */
+	private int getGfxFileData(final int[] array, final ECivilisation civilisation) {
+		return array[civilisation.getFileIndex() - 1];
+	}
+
+	public int getGfxBuildingFileIndex(final ECivilisation civilisation) {
+		return getGfxFileData(BUILDING_BUILD_GFX_FILE, civilisation);
+	}
+
+	public int getGfxBuildingMenuFileIndex(final ECivilisation civilisation) {
+		return getGfxFileData(BUILDING_MENU_GFX_FILE, civilisation);
+	}
+
+	public int getGfxMillIndex(final ECivilisation civilisation) {
+		return getGfxFileData(MILL_SEQUENCE, civilisation);
+	}
+
+	public int getGfxMillRotationIndex(final ECivilisation civilisation) {
+		return getGfxFileData(MILL_ROTATION_SEQUENCE, civilisation);
 	}
 }

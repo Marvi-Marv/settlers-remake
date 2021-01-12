@@ -166,9 +166,6 @@ public class MapObjectDrawer {
 	private static final int SELECT_MARK_SEQUENCE = 11;
 	private static final int SELECT_MARK_FILE     = 4;
 
-	private static final int MILL_FILE = 13;
-	private static final int MILL_SEQ  = 15;
-
 	private static final int PIG_SEQ      = 0;
 	private static final int ANIMALS_FILE = 6;
 	private static final int FISH_SEQ     = 7;
@@ -1255,7 +1252,7 @@ public class MapObjectDrawer {
 			}
 
 			if (variant.isVariantOf(EBuildingType.MILL) && ((IBuilding.IMill) building).isRotating()) {
-				Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(MILL_FILE, MILL_SEQ);
+				Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(this.imageProvider.getGfxBuildingFileIndex(variant.getCivilisation()), this.imageProvider.getGfxMillRotationIndex(variant.getCivilisation()));
 
 				if (seq.length() > 0) {
 					int i = getAnimationStep(x, y);
