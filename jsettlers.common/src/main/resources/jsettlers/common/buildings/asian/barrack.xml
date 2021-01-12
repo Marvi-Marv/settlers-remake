@@ -111,8 +111,8 @@
 
 	<workcenter dx="-1" dy="3"/>
 
-	<image file="14" type="GUI" for="GUI" image="0" sequence="57"/>
-    <image file="13" type="SETTLER" for="FINAL" image="0" sequence="34"/>
-    <image file="13" type="SETTLER" for="BUILD" image="1" sequence="34"/>
+	<image file="34" type="GUI" for="GUI" image="0" sequence="60"/>
+    <image file="33" type="SETTLER" for="FINAL" image="0" sequence="27"/>
+    <image file="33" type="SETTLER" for="BUILD" image="1" sequence="27"/>
 
 </building>

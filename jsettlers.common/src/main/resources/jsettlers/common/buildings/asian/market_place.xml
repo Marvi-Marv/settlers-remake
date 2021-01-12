@@ -84,9 +84,9 @@
 	<buildmark dx="3" dy="0" />
 	<buildmark dx="0" dy="-3" />
 
-	<image file="14" for="GUI" type="GUI" sequence="99" image="0" />
-	<image file="13" for="FINAL" type="SETTLER" sequence="28" image="0" />
-	<image file="13" for="FINAL" type="SETTLER" sequence="28" image="1" />
-	<image file="13" for="BUILD" type="SETTLER" sequence="28" image="2" />
-	<image file="13" for="BUILD" type="SETTLER" sequence="28" image="3" />
+	<image file="34" for="GUI" type="GUI" sequence="99" image="0" />
+	<image file="33" for="FINAL" type="SETTLER" sequence="31" image="0" />
+	<image file="33" for="FINAL" type="SETTLER" sequence="31" image="1" />
+	<image file="33" for="BUILD" type="SETTLER" sequence="31" image="2" />
+	<image file="33" for="BUILD" type="SETTLER" sequence="31" image="3" />
 </building>

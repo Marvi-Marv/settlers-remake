@@ -106,9 +106,9 @@
 	<buildmark dx="1" dy="-1" />
 	<buildmark dx="5" dy="6" />
 
-	<image file="14" type="GUI" for="GUI" image="0" sequence="102" />
-	<image file="13" type="SETTLER" for="FINAL" image="0" sequence="31" />
-	<image file="13" type="SETTLER" for="BUILD" image="1" sequence="31" />
-	<image file="13" type="SETTLER" for="FINAL" image="2" sequence="31" />
+	<image file="34" type="GUI" for="GUI" image="0" sequence="84" />
+	<image file="33" type="SETTLER" for="FINAL" image="0" sequence="32" />
+	<image file="33" type="SETTLER" for="BUILD" image="1" sequence="32" />
+	<image file="33" type="SETTLER" for="FINAL" image="2" sequence="32" />
 
 </building>

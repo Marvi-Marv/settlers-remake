@@ -62,12 +62,12 @@
     <buildmark dx="-1" dy="-2" />
     <buildmark dx="0" dy="-2" />
 
-    <image file="14" type="GUI" for="GUI" image="0" sequence="54" />
-    <image file="13" type="SETTLER" for="FINAL" image="0" sequence="17"/>
-    <image file="13" type="SETTLER" for="BUILD" image="1" sequence="17"/>
-    <image file="13" type="SETTLER" for="FINAL" image="2" sequence="17"/>
+    <image file="44" type="GUI" for="GUI" image="0" sequence="60" />
+    <image file="43" type="SETTLER" for="FINAL" image="0" sequence="22"/>
+    <image file="43" type="SETTLER" for="BUILD" image="1" sequence="22"/>
+    <image file="43" type="SETTLER" for="FINAL" image="2" sequence="22"/>
 
-    <occupyer offsetX="-16" type="INFANTRY" offsetY="23" soldierX="3" soldierY="2" looksRight="false"/>
+    <occupyer offsetX="-25" type="INFANTRY" offsetY="18" soldierX="3" soldierY="2" looksRight="false"/>
     <occupyer offsetX="-7" offsetY="60" type="BOWMAN" soldierX="-3" soldierY="-6"/>
     <occupyer offsetX="13" offsetY="60" type="BOWMAN" soldierX="-2" soldierY="-6"/>
 

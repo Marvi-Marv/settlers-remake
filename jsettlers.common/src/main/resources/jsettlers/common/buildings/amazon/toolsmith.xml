@@ -98,9 +98,9 @@
     <buildmark dx="-1" dy="2" />
     <buildmark dx="-1" dy="0" />
 
-    <image file="14" for="GUI" type="GUI" sequence="30" image="0" />
-    <image file="13" type="SETTLER" for="FINAL" image="0" sequence="10" />
-    <image file="13" type="SETTLER" for="BUILD" image="1" sequence="10" />
+    <image file="44" for="GUI" type="GUI" sequence="33" image="0" />
+    <image file="43" type="SETTLER" for="FINAL" image="0" sequence="15" />
+    <image file="43" type="SETTLER" for="BUILD" image="1" sequence="15" />
 
     <startjob name="go_to_door" />
 

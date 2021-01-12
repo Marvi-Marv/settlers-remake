@@ -1,5 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<!-- fix translation errors: Anlegestelle = Pier, Werft = Dockyard; assign images properly -->
+
+<!-- EGYPTIAN Building TODOS:
+	- fix resolution of menu
+	- create brewery building (mana)
+	- change temple goods mana ressources
+	- add Ballistenwerkstatt
+	- adjust dx/dy with BuildingCreatorApp (occupier, flags, blocks ... etc)
+	- what is lagerhaus?
+-->
+
+<!-- ASIAN Building TODOS:
+    - fix resolution of menu
+	- add mana specific buildings
+	- change temple goods mana ressources
+	- add Ballistenwerkstatt
+	- adjust dx/dy with BuildingCreatorApp (occupier, flags, blocks, required ressources ... etc)
+	- what is lagerhaus?
+-->
+
+<!-- AMAZON Building TODOS:
+    - fix resolution of menu
+	- add mana specific buildings
+	- change temple goods mana ressources
+	- add Ballistenwerkstatt
+	- adjust dx/dy with BuildingCreatorApp (occupier, flags, blocks, required ressources ... etc)
+	- what is lagerhaus?
+-->
+
 <!ENTITY % imagelinktype "(SETTLER| GUI| LANDSCAPE)">
 
 <!ENTITY % material "(

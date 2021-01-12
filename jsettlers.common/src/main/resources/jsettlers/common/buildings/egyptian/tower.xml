@@ -67,7 +67,7 @@
     <image file="23" type="SETTLER" for="BUILD" image="1" sequence="14"/>
     <image file="23" type="SETTLER" for="FINAL" image="2" sequence="14"/>
 
-    <occupyer offsetX="-16" type="INFANTRY" offsetY="23" soldierX="3" soldierY="2" looksRight="false"/>
+    <occupyer offsetX="-16" type="INFANTRY" offsetY="37" soldierX="3" soldierY="2" looksRight="false"/>
     <occupyer offsetX="-7" offsetY="60" type="BOWMAN" soldierX="-3" soldierY="-6"/>
     <occupyer offsetX="13" offsetY="60" type="BOWMAN" soldierX="-2" soldierY="-6"/>
 

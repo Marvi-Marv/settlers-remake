@@ -113,9 +113,9 @@
 	<buildmark dx="7" dy="6" />
 	<buildmark dx="5" dy="2" />
 
-	<image file="14" for="GUI" type="GUI" sequence="12" image="0"/>
-	<image file="13" for="FINAL" type="SETTLER" sequence="13" image="0"/>
-	<image file="13" for="BUILD" type="SETTLER" sequence="13" image="1"/>
+	<image file="44" for="GUI" type="GUI" sequence="12" image="0"/>
+	<image file="43" for="FINAL" type="SETTLER" sequence="18" image="0"/>
+	<image file="43" for="BUILD" type="SETTLER" sequence="18" image="1"/>
 
 	<!-- drop stack for meat: 1, 4 -->
 	<startjob name="gohome"/>

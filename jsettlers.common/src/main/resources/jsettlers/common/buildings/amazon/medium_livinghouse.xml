@@ -113,7 +113,7 @@
 	<buildmark dx="3" dy="5" />
 
 
-	<image file="14" for="GUI" type="GUI" sequence="75" image="0"/>
-    <image file="13" type="SETTLER" for="FINAL" image="0" sequence="25"/>
-    <image file="13" type="SETTLER" for="BUILD" image="1" sequence="25"/>
+	<image file="44" for="GUI" type="GUI" sequence="81" image="0"/>
+    <image file="43" type="SETTLER" for="FINAL" image="0" sequence="30"/>
+    <image file="43" type="SETTLER" for="BUILD" image="1" sequence="30"/>
 	</building>

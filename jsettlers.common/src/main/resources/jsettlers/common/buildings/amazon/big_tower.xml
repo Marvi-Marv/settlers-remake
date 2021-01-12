@@ -97,10 +97,10 @@
     <buildmark dx="3" dy="0" />
     <buildmark dx="-2" dy="-4" />
 
-    <image file="14" for="GUI" type="GUI" sequence="60" image="0" />
-    <image file="13" type="SETTLER" for="FINAL" image="0" sequence="18" />
-    <image file="13" type="SETTLER" for="BUILD" image="1" sequence="18" />
-    <image file="13" type="SETTLER" for="FINAL" image="2" sequence="18" />
+    <image file="44" for="GUI" type="GUI" sequence="66" image="0" />
+    <image file="43" type="SETTLER" for="FINAL" image="0" sequence="23" />
+    <image file="43" type="SETTLER" for="BUILD" image="1" sequence="23" />
+    <image file="43" type="SETTLER" for="FINAL" image="2" sequence="23" />
 
     <!-- lower left: (8,-6) (24,11) (41,23) -->
     <occupyer offsetX="-1" type="INFANTRY" offsetY="0" soldierX="0" soldierY="0" looksRight="true" />
