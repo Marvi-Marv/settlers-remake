@@ -67,7 +67,7 @@
 	<constructionStack dx="4" dy="4" material="STONE" buildrequired="6" />
 	<requestStack dx="3" dy="4" material="CROP" />
 	<requestStack dx="4" dy="2" material="WATER" />
-	<offerStack dx="-2" dy="2" material="BREAD" />
+	<offerStack dx="-2" dy="2" material="KEG" />
 
 	<bricklayer dx="-1" dy="2" direction="NORTH_EAST" />
 	<bricklayer dx="1" dy="4" direction="NORTH_EAST" />
@@ -92,17 +92,17 @@
 	<job name="hide" type="HIDE" successjob="reset1" failjob="reset1"/>
 	<job name="reset1" type="SET_MATERIAL" successjob="wait" failjob="wait" material="NO_MATERIAL"/>
 	<job name="wait" type="WAIT" successjob="check1" failjob="check1" time="1"/>
-	<job name="check1" type="AVAILABLE" successjob="check2" failjob="wait" dx="3" dy="4" material="FLOUR"/>
+	<job name="check1" type="AVAILABLE" successjob="check2" failjob="wait" dx="3" dy="4" material="CROP"/>
 	<job name="check2" type="AVAILABLE" successjob="check3" failjob="wait" dx="4" dy="2" material="WATER"/>
 	<job name="check3" type="NOT_FULL" successjob="A_show" failjob="wait" dx="-2" dy="2"/>
 
-	<!-- go take flour -->
+	<!-- go take crop -->
 	<job name="A_show"   type="SHOW"         successjob="A_walkA1" failjob="gohome" dx="3" dy="2" />
 	<job name="A_walkA1" type="WALK"         successjob="A_walkA2" failjob="gohome" direction="SOUTH_EAST"/>
 	<job name="A_walkA2" type="WALK"         successjob="A_walkA3" failjob="gohome" direction="SOUTH_WEST"/>
 	<job name="A_walkA3" type="WALK"         successjob="A_lookat" failjob="gohome" direction="WEST"/>
 	<job name="A_lookat" type="LOOK_AT"      successjob="A_take"   failjob="gohome" direction="NORTH_WEST"/>
-	<job name="A_take"   type="TAKE"      	 successjob="A_walkB1" failjob="gohome" material="FLOUR"/>
+	<job name="A_take"   type="TAKE"      	 successjob="A_walkB1" failjob="gohome" material="CROP"/>
 	<job name="A_walkB1" type="WALK"         successjob="A_walkB2" failjob="gohome" direction="EAST"/>
 	<job name="A_walkB2" type="WALK"         successjob="A_walkB3" failjob="gohome" direction="NORTH_EAST"/>
 	<job name="A_walkB3" type="WALK"         successjob="A_hide"   failjob="gohome" direction="NORTH_WEST"/>
@@ -121,7 +121,7 @@
 	<job name="B_wait" 	 type="WAIT" 		 successjob="C_start"   failjob="wait" time="3"/>
 
 	<!-- make bread -->
-	<job name="C_start"  type="SET_MATERIAL" successjob="C_show"   	failjob="gohome" material="WHITE_BREAD" />
+	<job name="C_start"  type="SET_MATERIAL" successjob="C_show"   	failjob="gohome" material="KEG" />
 	<job name="C_show"   type="SHOW"         successjob="C_walkA1" 	failjob="gohome" dx="3" dy="2" />
 	<job name="C_walkA1" type="WALK"         successjob="C_walkA2" 	failjob="gohome" direction="SOUTH_EAST"/>
 	<job name="C_walkA2" type="WALK"         successjob="C_walkA3" 	failjob="gohome" direction="SOUTH_WEST"/>
@@ -136,14 +136,14 @@
 	<job name="C_work3" type="SET_MATERIAL"  successjob="C_work4"  	failjob="gohome" material="BLADE"/>
 	<job name="C_work4" type="SMOKE_ON"      successjob="C_work5"	failjob="gohome" dx="0" dy="2"/>
 	<job name="C_work5" type="WAIT"          successjob="C_work6" 	failjob="gohome" time="4"/>
-	<job name="C_work6" type="SET_MATERIAL"  successjob="C_work7"  	failjob="gohome" material="BREAD"/>
+	<job name="C_work6" type="SET_MATERIAL"  successjob="C_work7"  	failjob="gohome" material="KEG"/>
 	<job name="C_work7" type="SMOKE_OFF"     successjob="C_work8" 	failjob="gohome" dx="0" dy="2"/>
 	<job name="C_work8" type="PLAY_ACTION1"  successjob="C_walkB1" 	failjob="gohome" time="1"/>
 
 	<job name="C_walkB1" type="WALK"         successjob="C_walkB2" 	failjob="gohome" direction="NORTH_WEST"/>
 	<job name="C_walkB2" type="WALK"         successjob="C_drop1"  	failjob="gohome" direction="NORTH_WEST"/>
 
-	<job name="C_drop1"  type="DROP"         successjob="C_set" 	failjob="gohome" material="BREAD"/>
+	<job name="C_drop1"  type="DROP"         successjob="C_set" 	failjob="gohome" material="KEG"/>
 	<job name="C_set"    type="SET_MATERIAL" successjob="goback"  	failjob="gohome" material="BLADE" />
 
 	<job name="goback"   type="GO_TO"        successjob="hide"	 	failjob="hide" 	dx="3" dy="2"/>

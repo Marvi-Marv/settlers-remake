@@ -17,10 +17,12 @@ package jsettlers.logic.buildings.others;
 import jsettlers.common.buildings.EBuildingType;
 import jsettlers.common.mapobject.EMapObjectType;
 import jsettlers.common.material.EMaterialType;
+import jsettlers.common.player.ECivilisation;
 import jsettlers.common.position.ShortPoint2D;
 import jsettlers.logic.buildings.Building;
 import jsettlers.logic.buildings.IBuildingsGrid;
 import jsettlers.logic.buildings.stack.IRequestStack;
+import jsettlers.logic.objects.ManaMapObject;
 import jsettlers.logic.player.Player;
 
 import java.util.List;
@@ -29,7 +31,9 @@ import java.util.List;
  *
  * 
  * @author Andreas Eberle
- * 
+ * @author MarviMarv
+ *
+ * TODO: check whether the consumption timer is for all civilisations the same?
  */
 public final class TempleBuilding extends Building {
 	private static final long serialVersionUID = 1L;
@@ -44,9 +48,9 @@ public final class TempleBuilding extends Building {
 
 	@Override
 	protected int subTimerEvent() {
-		IRequestStack wineStack = getWineStack();
+		IRequestStack manaStack = getManaStack();
 
-		if (wineStack.pop()) {
+		if (manaStack.pop()) {
 			getPlayer().getMannaInformation().increaseManna();
 			return CONSUME_DELAY;
 		} else {
@@ -54,18 +58,20 @@ public final class TempleBuilding extends Building {
 		}
 	}
 
-	private IRequestStack getWineStack() {
+	private IRequestStack getManaStack() {
 		List<? extends IRequestStack> stacks = super.getStacks();
 		assert stacks.size() == 1;
 
-		IRequestStack wineStack = stacks.get(0);
-		assert wineStack.getMaterialType() == EMaterialType.WINE;
-		return wineStack;
+		IRequestStack manaStack = stacks.get(0);
+
+		assert manaStack.getMaterialType() == (EMaterialType)this.getCivilisationManaData(1);
+
+		return manaStack;
 	}
 
 	@Override
 	protected int constructionFinishedEvent() {
-		super.grid.getMapObjectsManager().addWineBowl(super.getDoor(), getWineStack());
+		super.grid.getMapObjectsManager().addManaObject(super.getDoor(), new ManaMapObject(this.getManaStack(), this.getPlayer().getCivilisation()));
 		return CHECK_DELAY;
 	}
 
@@ -74,9 +80,42 @@ public final class TempleBuilding extends Building {
 		return EMapObjectType.FLAG_DOOR;
 	}
 
+
 	@Override
 	protected void killedEvent() {
 		ShortPoint2D door = super.getDoor();
-		super.grid.getMapObjectsManager().removeMapObjectType(door.x, door.y, EMapObjectType.WINE_BOWL);
+		EMapObjectType type = null;
+
+		super.grid.getMapObjectsManager().removeMapObjectType(door.x, door.y, (EMapObjectType)this.getCivilisationManaData(2));
+	}
+
+	private Object getCivilisationManaData(int dataIndex) {
+		switch(this.getPlayer().getCivilisation()) {
+			case AMAZON:
+				switch (dataIndex) {
+					case 1: return EMaterialType.MEAD;
+					case 2: return EMapObjectType.MEAD;
+					default: return null;
+				}
+			case ASIAN:
+				switch (dataIndex) {
+					case 1: return EMaterialType.LIQUOR;
+					case 2: return EMapObjectType.LIQUOR;
+					default: return null;
+				}
+			case EGYPTIAN:
+				switch (dataIndex) {
+					case 1: return EMaterialType.KEG;
+					case 2: return EMapObjectType.KEG;
+					default: return null;
+				}
+			case ROMAN:
+			default:
+				switch (dataIndex) {
+					case 1: return EMaterialType.WINE;
+					case 2: return EMapObjectType.WINE_BOWL;
+					default: return null;
+				}
+		}
 	}
 }

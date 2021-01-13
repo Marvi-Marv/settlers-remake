@@ -34,12 +34,12 @@ import jsettlers.logic.constants.MatchConstants;
 import jsettlers.logic.movable.interfaces.IInformable;
 import jsettlers.logic.objects.BurningTree;
 import jsettlers.logic.objects.DonkeyMapObject;
+import jsettlers.logic.objects.ManaMapObject;
 import jsettlers.logic.objects.PigObject;
 import jsettlers.logic.objects.RessourceSignMapObject;
 import jsettlers.logic.objects.SelfDeletingMapObject;
 import jsettlers.logic.objects.SoundableSelfDeletingObject;
 import jsettlers.logic.objects.StandardMapObject;
-import jsettlers.logic.objects.WineBowlMapObject;
 import jsettlers.logic.objects.arrow.ArrowObject;
 import jsettlers.logic.objects.building.BuildingWorkAreaMarkObject;
 import jsettlers.logic.objects.building.ConstructionMarkObject;
@@ -321,8 +321,8 @@ public final class MapObjectsManager implements IScheduledTimerable, Serializabl
 		addMapObject(x, y, new BuildingWorkAreaMarkObject(radius));
 	}
 
-	public void addWineBowl(ShortPoint2D pos, IStackSizeSupplier wineStack) {
-		addMapObject(pos, new WineBowlMapObject(wineStack));
+	public void addManaObject(ShortPoint2D pos, ManaMapObject mapObject) {
+		addMapObject(pos, mapObject);
 	}
 
 	public void addSelfDeletingMapObject(ShortPoint2D pos, EMapObjectType mapObjectType, float duration, IPlayer player) {
