@@ -61,9 +61,7 @@ public final class TempleBuilding extends Building {
 	private IRequestStack getManaStack() {
 		List<? extends IRequestStack> stacks = super.getStacks();
 		assert stacks.size() == 1;
-
 		IRequestStack manaStack = stacks.get(0);
-
 		assert manaStack.getMaterialType() == (EMaterialType)this.getCivilisationManaData(1);
 
 		return manaStack;
@@ -84,8 +82,6 @@ public final class TempleBuilding extends Building {
 	@Override
 	protected void killedEvent() {
 		ShortPoint2D door = super.getDoor();
-		EMapObjectType type = null;
-
 		super.grid.getMapObjectsManager().removeMapObjectType(door.x, door.y, (EMapObjectType)this.getCivilisationManaData(2));
 	}
 
