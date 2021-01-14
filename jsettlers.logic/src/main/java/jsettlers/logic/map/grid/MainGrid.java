@@ -184,6 +184,10 @@ public final class MainGrid implements Serializable {
 		initAdditional();
 	}
 
+	public boolean isRicePlantable(ShortPoint2D point) {
+		return movablePathfinderGrid.pathfinderGrid.isRicePlantable(point.x, point.y);
+	}
+
 	public boolean isWinePlantable(ShortPoint2D point) {
 		return movablePathfinderGrid.pathfinderGrid.isWinePlantable(point.x, point.y);
 	}
@@ -594,6 +598,11 @@ public final class MainGrid implements Serializable {
 				case HARVESTABLE_WINE:
 					return isMapObjectCuttable(x, y, EMapObjectType.WINE_HARVESTABLE) && hasSamePlayer(x, y, pathCalculable) && !isMarked(x, y);
 
+				case PLANTABLE_RICE:
+					return !isMarked(x, y) && hasSamePlayer(x, y, pathCalculable) && isRicePlantable(x, y);
+				case HARVESTABLE_RICE:
+					return isMapObjectCuttable(x, y, EMapObjectType.RICE_HARVESTABLE) && hasSamePlayer(x, y, pathCalculable) && !isMarked(x, y);
+
 				case SUMMON_STONE:
 					return true; // not actually a search
 				case CUTTABLE_STONE:
@@ -752,6 +761,12 @@ public final class MainGrid implements Serializable {
 				}
 			}
 			return false;
+		}
+
+		private boolean isRicePlantable(int x, int y) {
+			return !flagsGrid.isProtected(x, y)
+					&& !objectsGrid.hasMapObjectType(x, y, EMapObjectType.RICE_GROWING, EMapObjectType.RICE_HARVESTABLE, EMapObjectType.RICE_DEAD)
+					&& landscapeGrid.getLandscapeTypeAt(x, y).isMoor();
 		}
 
 		private EDirection getDirectionOfMaximumHeightDifference(int x, int y, int minimumHeightDifference) {

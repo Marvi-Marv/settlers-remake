@@ -68,6 +68,7 @@ import jsettlers.graphics.sound.SoundManager;
  * This class handles drawing of objects on the map.
  *
  * @author michael
+ * @author MarviMarv
  */
 public class MapObjectDrawer {
 
@@ -149,13 +150,6 @@ public class MapObjectDrawer {
 	private static final int CORN            = 23;
 	private static final int CORN_GROW_STEPS = 7;
 	private static final int CORN_DEAD_STEP  = 8;
-
-	private static final int WINE            = 25;
-	private static final int WINE_GROW_STEPS = 3;
-	private static final int WINE_DEAD_STEP  = 0;
-
-	private static final int WINE_BOWL_SEQUENCE = 46;
-	private static final int WINE_BOWL_IMAGES   = 9;
 
 	private static final int WAVES = 26;
 
@@ -470,8 +464,27 @@ public class MapObjectDrawer {
 				drawDeadWine(x, y, color);
 				break;
 
+			case RICE_GROWING:
+				drawGrowingRice(x, y, object, color);
+				break;
+			case RICE_HARVESTABLE:
+				drawHarvestableRice(x, y, color);
+				break;
+			case RICE_DEAD:
+				drawDeadRice(x, y, color);
+				break;
+
 			case WINE_BOWL:
-				drawWineBowl(x, y, object, color);
+				drawTempleManaBowl(x, y, object, color, 0);
+				break;
+			case BEER_BOWL:
+				drawTempleManaBowl(x, y, object, color, 1);
+				break;
+			case LIQUOR_BOWL:
+				drawTempleManaBowl(x, y, object, color, 2);
+				break;
+			case MEAD_BOWL:
+				drawTempleManaBowl(x, y, object, color, 3);
 				break;
 
 			case WAVES:
@@ -1044,6 +1057,7 @@ public class MapObjectDrawer {
 		}
 	}
 
+	//Corn
 	private void drawGrowingCorn(int x, int y, IMapObject object, float color) {
 		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(OBJECTS_FILE, CORN);
 		int step = (int) (object.getStateProgress() * CORN_GROW_STEPS);
@@ -1060,26 +1074,44 @@ public class MapObjectDrawer {
 		draw(seq.getImageSafe(CORN_DEAD_STEP, () -> "dead-corn"), x, y, 0, color);
 	}
 
+	//Wine
 	private void drawGrowingWine(int x, int y, IMapObject object, float color) {
-		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(OBJECTS_FILE, WINE);
-		int step = (int) (object.getStateProgress() * WINE_GROW_STEPS);
+		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(GfxConstants.FILE_OBJECT, GfxConstants.SEQ_WINE);
+		int step = (int) (object.getStateProgress() * GfxConstants.COUNT_WINE_GROW_STEPS);
 		draw(seq.getImageSafe(step, () -> "growing-wine"), x, y, 0, color);
 	}
 
 	private void drawHarvestableWine(int x, int y, float color) {
-		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(OBJECTS_FILE, WINE);
-		draw(seq.getImageSafe(WINE_GROW_STEPS, () -> "grown-wine"), x, y, 0, color);
+		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(GfxConstants.FILE_OBJECT, GfxConstants.SEQ_WINE);
+		draw(seq.getImageSafe(GfxConstants.COUNT_WINE_GROW_STEPS, () -> "grown-wine"), x, y, 0, color);
 	}
 
 	private void drawDeadWine(int x, int y, float color) {
-		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(OBJECTS_FILE, WINE);
-		draw(seq.getImageSafe(WINE_DEAD_STEP, () -> "dead-wine"), x, y, 0, color);
+		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(GfxConstants.FILE_OBJECT, GfxConstants.SEQ_WINE);
+		draw(seq.getImageSafe(GfxConstants.INDEX_WINE_DEAD_STEP, () -> "dead-wine"), x, y, 0, color);
 	}
 
-	private void drawWineBowl(int x, int y, IMapObject object, float color) {
-		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(BUILDINGS_FILE, WINE_BOWL_SEQUENCE);
-		int step = (int) (object.getStateProgress() * (WINE_BOWL_IMAGES - 1));
-		draw(seq.getImageSafe(step, () -> "wine-bowl"), x, y, 0, color);
+	//Rice
+	private void drawGrowingRice(int x, int y, IMapObject object, float color) {
+		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(GfxConstants.FILE_OBJECT, GfxConstants.SEQ_RICE);
+		int step = (int) (object.getStateProgress() * GfxConstants.COUNT_RICE_GROW_STEPS);
+		draw(seq.getImageSafe(step, () -> "growing-rice"), x, y, 0, color);
+	}
+
+	private void drawHarvestableRice(int x, int y, float color) {
+		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(GfxConstants.FILE_OBJECT, GfxConstants.SEQ_RICE);
+		draw(seq.getImageSafe(GfxConstants.COUNT_RICE_GROW_STEPS, () -> "grown-rice"), x, y, 0, color);
+	}
+
+	private void drawDeadRice(int x, int y, float color) {
+		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(GfxConstants.FILE_OBJECT, GfxConstants.SEQ_RICE);
+		draw(seq.getImageSafe(GfxConstants.INDEX_RICE_DEAD_STEP, () -> "dead-rice"), x, y, 0, color);
+	}
+
+	private void drawTempleManaBowl(int x, int y, IMapObject object, float color, int civilisationIndex) {
+		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(GfxConstants.FILE_BUILDING[civilisationIndex], GfxConstants.SEQ_TEMPLE_MANA_BOWL[civilisationIndex]);
+		int step = (int) (object.getStateProgress() * (GfxConstants.COUNT_TEMPLE_MANA_BOWL_IMAGES - 1));
+		draw(seq.getImageSafe(step, () -> "mana-bowl"), x, y, 0, color);
 	}
 
 	private void drawGrowingTree(int x, int y, float progress, float color) {
@@ -1252,7 +1284,7 @@ public class MapObjectDrawer {
 			}
 
 			if (variant.isVariantOf(EBuildingType.MILL) && ((IBuilding.IMill) building).isRotating()) {
-				Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(this.imageProvider.getGfxBuildingFileIndex(variant.getCivilisation()), this.imageProvider.getGfxMillRotationIndex(variant.getCivilisation()));
+				Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(GfxConstants.FILE_BUILDING[variant.getCivilisation().getFileIndex() - 1], GfxConstants.SEQ_MILL_ROTATION[variant.getCivilisation().getFileIndex() - 1]);
 
 				if (seq.length() > 0) {
 					int i = getAnimationStep(x, y);

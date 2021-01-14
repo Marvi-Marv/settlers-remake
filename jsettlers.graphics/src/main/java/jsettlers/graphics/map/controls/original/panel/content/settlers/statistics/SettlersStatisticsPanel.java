@@ -178,7 +178,12 @@ public class SettlersStatisticsPanel extends AbstractContentProvider implements 
 				+ settlerInformation.getMovableCount(EMovableType.MELTER)
 				+ settlerInformation.getMovableCount(EMovableType.WINEGROWER)
 				+ settlerInformation.getMovableCount(EMovableType.CHARCOAL_BURNER)
-				+ settlerInformation.getMovableCount(EMovableType.STONECUTTER);
+				+ settlerInformation.getMovableCount(EMovableType.STONECUTTER)
+				+ settlerInformation.getMovableCount(EMovableType.BREWER)
+				+ settlerInformation.getMovableCount(EMovableType.RICE_FARMER)
+				+ settlerInformation.getMovableCount(EMovableType.DISTILLER)
+				+ settlerInformation.getMovableCount(EMovableType.BEEKEEPER)
+				+ settlerInformation.getMovableCount(EMovableType.MEADKEEPER);
 	}
 
 	@Override

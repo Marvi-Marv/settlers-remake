@@ -90,19 +90,19 @@ public final class TempleBuilding extends Building {
 			case AMAZON:
 				switch (dataIndex) {
 					case 1: return EMaterialType.MEAD;
-					case 2: return EMapObjectType.MEAD;
+					case 2: return EMapObjectType.MEAD_BOWL;
 					default: return null;
 				}
 			case ASIAN:
 				switch (dataIndex) {
 					case 1: return EMaterialType.LIQUOR;
-					case 2: return EMapObjectType.LIQUOR;
+					case 2: return EMapObjectType.LIQUOR_BOWL;
 					default: return null;
 				}
 			case EGYPTIAN:
 				switch (dataIndex) {
 					case 1: return EMaterialType.KEG;
-					case 2: return EMapObjectType.KEG;
+					case 2: return EMapObjectType.BEER_BOWL;
 					default: return null;
 				}
 			case ROMAN:

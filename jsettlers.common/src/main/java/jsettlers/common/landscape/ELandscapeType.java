@@ -116,6 +116,10 @@ public enum ELandscapeType {
 		return this == GRASS || this == FLATTENED;
 	}
 
+	public final boolean isMoor() {
+		return MOOR_TYPES.contains(this);
+	}
+
 	public final boolean isRiver() {
 		return RIVERS.contains(this);
 	}

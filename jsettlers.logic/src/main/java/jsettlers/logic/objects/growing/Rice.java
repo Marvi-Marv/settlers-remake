@@ -21,25 +21,27 @@ import jsettlers.logic.map.grid.objects.IMapObjectsManagerGrid;
 import jsettlers.logic.map.grid.objects.MapObjectsManager;
 
 /**
- * This is a Wineplant on the map.
+ * This is a Riceplant on the map.
+ *
+ * TODO: Validate growth timings
  * 
- * @author Andreas Eberle
+ * @author MarviMarv
  * 
  */
-public final class Wine extends GrowingObject {
-	private static final long serialVersionUID = -7535441306083940418L;
+public final class Rice extends GrowingObject {
+	private static final long serialVersionUID = 8086261556083213266L;
 
 	public static final float GROWTH_DURATION = 7 * 60;
 	public static final float DECOMPOSE_DURATION = 3 * 60;
 	public static final float REMOVE_DURATION = 2 * 60;
 
 	/**
-	 * Creates a new Wine.
-	 * 
+	 * Creates a new Rice.
+	 *
 	 * @param grid
 	 */
-	public Wine(ShortPoint2D pos) {
-		super(pos, EMapObjectType.WINE_GROWING);
+	public Rice(ShortPoint2D pos) {
+		super(pos, EMapObjectType.RICE_GROWING);
 	}
 
 	@Override
@@ -54,25 +56,21 @@ public final class Wine extends GrowingObject {
 
 	@Override
 	protected EMapObjectType getDeadState() {
-		return EMapObjectType.WINE_DEAD;
+		return EMapObjectType.RICE_DEAD;
 	}
 
 	@Override
 	protected EMapObjectType getAdultState() {
-		return EMapObjectType.WINE_HARVESTABLE;
+		return EMapObjectType.RICE_HARVESTABLE;
 	}
 
 	@Override
 	protected void handlePlacement(int x, int y, MapObjectsManager mapObjectsManager, IMapObjectsManagerGrid grid) {
 		super.handlePlacement(x, y, mapObjectsManager, grid);
-
-		grid.setLandscape(x, y, ELandscapeType.EARTH);
 	}
 
 	@Override
 	protected void handleRemove(int x, int y, MapObjectsManager mapObjectsManager, IMapObjectsManagerGrid grid) {
 		super.handleRemove(x, y, mapObjectsManager, grid);
-
-		grid.setLandscape(x, y, ELandscapeType.GRASS);
 	}
 }

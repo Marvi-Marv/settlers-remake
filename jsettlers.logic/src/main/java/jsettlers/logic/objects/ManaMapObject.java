@@ -24,11 +24,11 @@ public class ManaMapObject extends AbstractHexMapObject {
     public EMapObjectType getObjectType() {
         switch (this.civilisation) {
             case AMAZON:
-                return EMapObjectType.MEAD;
+                return EMapObjectType.MEAD_BOWL;
             case ASIAN:
-                return EMapObjectType.LIQUOR;
+                return EMapObjectType.LIQUOR_BOWL;
             case EGYPTIAN:
-                return EMapObjectType.KEG;
+                return EMapObjectType.BEER_BOWL;
             case ROMAN:
             default:
                 return EMapObjectType.WINE_BOWL;

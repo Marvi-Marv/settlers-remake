@@ -45,6 +45,7 @@ import jsettlers.logic.objects.building.BuildingWorkAreaMarkObject;
 import jsettlers.logic.objects.building.ConstructionMarkObject;
 import jsettlers.logic.objects.building.InformableMapObject;
 import jsettlers.logic.objects.growing.Corn;
+import jsettlers.logic.objects.growing.Rice;
 import jsettlers.logic.objects.growing.Wine;
 import jsettlers.logic.objects.growing.tree.AdultTree;
 import jsettlers.logic.objects.growing.tree.Tree;
@@ -130,6 +131,11 @@ public final class MapObjectsManager implements IScheduledTimerable, Serializabl
 			return plantWine(pos, timeMod);
 		case HARVESTABLE_WINE:
 			return harvestWine(pos);
+
+		case PLANTABLE_RICE:
+			return plantRice(pos, timeMod);
+		case HARVESTABLE_RICE:
+			return harvestRice(pos);
 
 		case RESOURCE_SIGNABLE:
 			return addRessourceSign(pos);
@@ -246,6 +252,28 @@ public final class MapObjectsManager implements IScheduledTimerable, Serializabl
 			AbstractObjectsManagerObject wine = (AbstractObjectsManagerObject) grid.getMapObject(x, y, EMapObjectType.WINE_HARVESTABLE);
 			if (wine != null && wine.cutOff()) {
 				schedule(wine, Wine.REMOVE_DURATION, true);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private boolean plantRice(ShortPoint2D pos, float mod) {
+		Rice rice = new Rice(pos);
+		addMapObject(pos, rice);
+		schedule(rice, Rice.GROWTH_DURATION*mod, false);
+		schedule(rice, Rice.GROWTH_DURATION*mod + Rice.DECOMPOSE_DURATION, false);
+		schedule(rice, Rice.GROWTH_DURATION*mod + Rice.DECOMPOSE_DURATION + Rice.REMOVE_DURATION, true);
+		return true;
+	}
+
+	private boolean harvestRice(ShortPoint2D pos) {
+		short x = pos.x;
+		short y = pos.y;
+		if (grid.isInBounds(x, y)) {
+			AbstractObjectsManagerObject rice = (AbstractObjectsManagerObject) grid.getMapObject(x, y, EMapObjectType.RICE_HARVESTABLE);
+			if (rice != null && rice.cutOff()) {
+				schedule(rice, Rice.REMOVE_DURATION, true);
 				return true;
 			}
 		}
