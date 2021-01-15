@@ -18,7 +18,6 @@ import android.content.Context;
 import android.opengl.EGL14;
 import android.opengl.EGLExt;
 import android.opengl.GLSurfaceView;
-import android.os.Vibrator;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -94,16 +93,12 @@ public class GOSurfaceView extends GLSurfaceView implements RedrawListener, GOEv
 			this.modifiers = modifiers;
 
 			gestureDetector.setIsLongpressEnabled(false);
-
-			vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);
 		}
 
 		@Override
 		protected Set<EModifier> getCurrentModifiers() {
 			return modifiers.get();
 		}
-
-		private final Vibrator vibrator;
 
 		/**
 		 * The pan start center, in GO space
@@ -114,8 +109,6 @@ public class GOSurfaceView extends GLSurfaceView implements RedrawListener, GOEv
 		private final GestureDetector.SimpleOnGestureListener longPressListener = new GestureDetector.SimpleOnGestureListener() {
 			@Override
 			public void onLongPress(MotionEvent e) {
-				vibrator.vibrate(25);
-
 				endPan(currentPoint(e));
 				startDraw(currentPoint(e));
 			}

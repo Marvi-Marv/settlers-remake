@@ -253,7 +253,7 @@ public class FilesystemTreeNode implements TreeNode {
 	}
 
 	@Override
-	public Enumeration<?> children() {
+	public Enumeration<? extends TreeNode> children() {
 		return Collections.enumeration(children);
 	}
 }
