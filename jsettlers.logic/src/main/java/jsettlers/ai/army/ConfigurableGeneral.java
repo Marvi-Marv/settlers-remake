@@ -343,7 +343,12 @@ public class ConfigurableGeneral implements ArmyGeneral {
 	private void sendTroopsTo(List<ShortPoint2D> attackerPositions, ShortPoint2D target, Set<Integer> soldiersWithOrders, EMoveToType moveToType) {
 		List<Integer> attackerIds = new Vector<>(attackerPositions.size());
 		for (ShortPoint2D attackerPosition : attackerPositions) {
-			attackerIds.add(movableGrid.getMovableAt(attackerPosition.x, attackerPosition.y).getID());
+			ILogicMovable movable = movableGrid.getMovableAt(attackerPosition.x, attackerPosition.y);
+			if(movable == null) {
+				System.err.printf("AI ERROR: Attacker at %d:%d does not exist!\n", attackerPosition.x, attackerPosition.y);
+				continue;
+			}
+			attackerIds.add(movable.getID());
 		}
 
 		sendTroopsToById(attackerIds, target, soldiersWithOrders, moveToType);
