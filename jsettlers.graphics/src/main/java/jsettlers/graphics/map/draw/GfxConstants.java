@@ -36,7 +36,8 @@ public final class GfxConstants {
      */
     //Corn
     public static final int SEQ_CORN = 23;
-    public static final int COUNT_CORN_GROW_STEPS = 7;
+    public static final int COUNT_CORN_GROW_STEPS = 6; //Corn is already harvestable beginning from image 6
+    public static final int INDEX_CORN_POST_GROWTH = 7;
     public static final int INDEX_CORN_DEAD_STEP = 8;
 
     //Wine

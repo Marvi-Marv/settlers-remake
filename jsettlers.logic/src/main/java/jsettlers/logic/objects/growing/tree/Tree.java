@@ -51,6 +51,9 @@ public class Tree extends GrowingObject implements ISoundable {
 	}
 
 	@Override
+	protected boolean isDecomposableWithoutCutOff() { return false;}
+
+	@Override
 	protected float getGrowthDuration() {
 		return GROWTH_DURATION;
 	}

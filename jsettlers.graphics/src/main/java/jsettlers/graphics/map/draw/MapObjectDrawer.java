@@ -443,7 +443,7 @@ public class MapObjectDrawer {
 				drawGrowingCorn(x, y, object, color);
 				break;
 			case CORN_ADULT:
-				drawCorn(x, y, color);
+				drawCorn(x, y, object, color);
 				break;
 			case CORN_DEAD:
 				drawDeadCorn(x, y, color);
@@ -1069,9 +1069,14 @@ public class MapObjectDrawer {
 		draw(seq.getImageSafe(step, () -> "growing-corn"), x, y, 0, color);
 	}
 
-	private void drawCorn(int x, int y, float color) {
+	private void drawCorn(int x, int y, IMapObject object, float color) {
 		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(GfxConstants.FILE_OBJECT, GfxConstants.SEQ_CORN);
-		draw(seq.getImageSafe(GfxConstants.COUNT_CORN_GROW_STEPS, () -> "grown-corn"), x, y, 0, color);
+		int adultImage = GfxConstants.COUNT_CORN_GROW_STEPS;
+		float state = object.getStateProgress();
+		if (state > 0.50f) {
+			adultImage = GfxConstants.INDEX_CORN_POST_GROWTH;
+		}
+		draw(seq.getImageSafe(adultImage, () -> "grown-corn"), x, y, 0, color);
 	}
 
 	private void drawDeadCorn(int x, int y, float color) {
