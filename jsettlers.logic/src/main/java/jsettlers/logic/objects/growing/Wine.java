@@ -22,14 +22,14 @@ import jsettlers.logic.map.grid.objects.MapObjectsManager;
 
 /**
  * This is a Wineplant on the map.
- * 
+ *
  * @author Andreas Eberle
  * 
  */
 public final class Wine extends GrowingObject {
 	private static final long serialVersionUID = -7535441306083940418L;
 
-	public static final float GROWTH_DURATION = 7 * 60;
+	public static final float GROWTH_DURATION = 9 * 60;
 	public static final float DECOMPOSE_DURATION = 3 * 60;
 	public static final float REMOVE_DURATION = 2 * 60;
 

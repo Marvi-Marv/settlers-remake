@@ -109,7 +109,6 @@ public class MapObjectDrawer {
 
 
 	private static final int OBJECTS_FILE   = 1;
-	private static final int BUILDINGS_FILE = 13;
 
 	private static final int   TREE_TYPES              = 7;
 	private static final int[] TREE_SEQUENCES          = new int[]{
@@ -146,10 +145,6 @@ public class MapObjectDrawer {
 	private static final int   TREE_SMALL         = 12;
 	private static final int   TREE_MEDIUM        = 11;
 	private static final int   SMALL_GROWING_TREE = 22;
-
-	private static final int CORN            = 23;
-	private static final int CORN_GROW_STEPS = 7;
-	private static final int CORN_DEAD_STEP  = 8;
 
 	private static final int WAVES = 26;
 
@@ -452,6 +447,16 @@ public class MapObjectDrawer {
 				break;
 			case CORN_DEAD:
 				drawDeadCorn(x, y, color);
+				break;
+
+			case HIVE_EMPTY:
+				drawEmptyHive(x, y, color);
+				break;
+			case HIVE_GROWING:
+				drawGrowingHive(x, y, object, color);
+				break;
+			case HIVE_HARVESTABLE:
+				drawHarvestableHive(x, y, color);
 				break;
 
 			case WINE_GROWING:
@@ -1059,19 +1064,19 @@ public class MapObjectDrawer {
 
 	//Corn
 	private void drawGrowingCorn(int x, int y, IMapObject object, float color) {
-		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(OBJECTS_FILE, CORN);
-		int step = (int) (object.getStateProgress() * CORN_GROW_STEPS);
+		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(GfxConstants.FILE_OBJECT, GfxConstants.SEQ_CORN);
+		int step = (int) (object.getStateProgress() * GfxConstants.COUNT_CORN_GROW_STEPS);
 		draw(seq.getImageSafe(step, () -> "growing-corn"), x, y, 0, color);
 	}
 
 	private void drawCorn(int x, int y, float color) {
-		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(OBJECTS_FILE, CORN);
-		draw(seq.getImageSafe(CORN_GROW_STEPS, () -> "grown-corn"), x, y, 0, color);
+		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(GfxConstants.FILE_OBJECT, GfxConstants.SEQ_CORN);
+		draw(seq.getImageSafe(GfxConstants.COUNT_CORN_GROW_STEPS, () -> "grown-corn"), x, y, 0, color);
 	}
 
 	private void drawDeadCorn(int x, int y, float color) {
-		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(OBJECTS_FILE, CORN);
-		draw(seq.getImageSafe(CORN_DEAD_STEP, () -> "dead-corn"), x, y, 0, color);
+		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(GfxConstants.FILE_OBJECT, GfxConstants.SEQ_CORN);
+		draw(seq.getImageSafe(GfxConstants.INDEX_CORN_DEAD_STEP, () -> "dead-corn"), x, y, 0, color);
 	}
 
 	//Wine
@@ -1108,12 +1113,33 @@ public class MapObjectDrawer {
 		draw(seq.getImageSafe(GfxConstants.INDEX_RICE_DEAD_STEP, () -> "dead-rice"), x, y, 0, color);
 	}
 
+	//Hive
+	private void drawEmptyHive(int x, int y, float color) {
+		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(GfxConstants.FILE_OBJECT_ANIMAL, GfxConstants.SEQ_HIVE_EMPTY);
+		draw(seq.getImageSafe(0, () -> "empty-hive"), x, y, 0, color);
+	}
+
+	private void drawGrowingHive(int x, int y, IMapObject object, float color) {
+		//int beeAnimationIndex = ((HiveObject)object).getBeeAnimation();
+		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(GfxConstants.FILE_OBJECT_ANIMAL, GfxConstants.SEQ_HIVE_GROW[0]);
+		int step = getAnimationStep(x, y) % seq.length();
+		draw(seq.getImageSafe(step, () -> "growing-hive"), x, y, 0, color);
+	}
+
+	private void drawHarvestableHive(int x, int y, float color) {
+		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(GfxConstants.FILE_OBJECT_ANIMAL, GfxConstants.SEQ_HIVE_LAST);
+		int step = getAnimationStep(x, y) % seq.length();
+		draw(seq.getImageSafe(step, () -> "grown-hive"), x, y, 0, color);
+	}
+
+	//Temple
 	private void drawTempleManaBowl(int x, int y, IMapObject object, float color, int civilisationIndex) {
 		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(GfxConstants.FILE_BUILDING[civilisationIndex], GfxConstants.SEQ_TEMPLE_MANA_BOWL[civilisationIndex]);
 		int step = (int) (object.getStateProgress() * (GfxConstants.COUNT_TEMPLE_MANA_BOWL_IMAGES - 1));
 		draw(seq.getImageSafe(step, () -> "mana-bowl"), x, y, 0, color);
 	}
 
+	//Tree
 	private void drawGrowingTree(int x, int y, float progress, float color) {
 		Image image;
 		if (progress < 0.33) {

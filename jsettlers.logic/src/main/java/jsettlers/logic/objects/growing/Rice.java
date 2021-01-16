@@ -22,8 +22,6 @@ import jsettlers.logic.map.grid.objects.MapObjectsManager;
 
 /**
  * This is a Riceplant on the map.
- *
- * TODO: Validate growth timings
  * 
  * @author MarviMarv
  * 
@@ -31,7 +29,7 @@ import jsettlers.logic.map.grid.objects.MapObjectsManager;
 public final class Rice extends GrowingObject {
 	private static final long serialVersionUID = 8086261556083213266L;
 
-	public static final float GROWTH_DURATION = 7 * 60;
+	public static final float GROWTH_DURATION = 11 * 60;
 	public static final float DECOMPOSE_DURATION = 3 * 60;
 	public static final float REMOVE_DURATION = 2 * 60;
 

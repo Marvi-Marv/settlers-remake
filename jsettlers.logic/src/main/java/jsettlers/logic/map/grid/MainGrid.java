@@ -184,6 +184,10 @@ public final class MainGrid implements Serializable {
 		initAdditional();
 	}
 
+	public boolean isHivePlantable(ShortPoint2D point) {
+		return movablePathfinderGrid.pathfinderGrid.isHivePlantable(point.x, point.y);
+	}
+
 	public boolean isRicePlantable(ShortPoint2D point) {
 		return movablePathfinderGrid.pathfinderGrid.isRicePlantable(point.x, point.y);
 	}
@@ -603,6 +607,11 @@ public final class MainGrid implements Serializable {
 				case HARVESTABLE_RICE:
 					return isMapObjectCuttable(x, y, EMapObjectType.RICE_HARVESTABLE) && hasSamePlayer(x, y, pathCalculable) && !isMarked(x, y);
 
+				case PLANTABLE_HIVE:
+					return !isMarked(x, y) && hasSamePlayer(x, y, pathCalculable) && isHivePlantable(x, y);
+				case HARVESTABLE_HIVE:
+					return isMapObjectCuttable(x, y, EMapObjectType.HIVE_HARVESTABLE) && hasSamePlayer(x, y, pathCalculable) && !isMarked(x, y);
+
 				case SUMMON_STONE:
 					return true; // not actually a search
 				case CUTTABLE_STONE:
@@ -767,6 +776,22 @@ public final class MainGrid implements Serializable {
 			return !flagsGrid.isProtected(x, y)
 					&& !objectsGrid.hasMapObjectType(x, y, EMapObjectType.RICE_GROWING, EMapObjectType.RICE_HARVESTABLE, EMapObjectType.RICE_DEAD)
 					&& landscapeGrid.getLandscapeTypeAt(x, y).isMoor();
+		}
+
+		//TODO: we need a radius search here for other hives
+		private boolean isHivePlantable(int x, int y) {
+			if (!flagsGrid.isProtected(x, y)
+				&& !objectsGrid.hasMapObjectType(x, y, EMapObjectType.HIVE_EMPTY, EMapObjectType.HIVE_GROWING, EMapObjectType.HIVE_HARVESTABLE)
+				&& landscapeGrid.isHexAreaOfType(x, y, 1, ELandscapeType.GRASS)) {
+
+				ShortPoint2D treePoint = objectsGrid.getNeighboorObjectTypePoint(x, y, EMapObjectType.TREE_ADULT);
+				if (treePoint != null) {
+					//check around tree for other hives
+					return !objectsGrid.hasNeighborObjectType(treePoint.x, treePoint.y, EMapObjectType.HIVE_EMPTY, EMapObjectType.HIVE_GROWING, EMapObjectType.HIVE_HARVESTABLE);
+				}
+			}
+
+			return false;
 		}
 
 		private EDirection getDirectionOfMaximumHeightDifference(int x, int y, int minimumHeightDifference) {

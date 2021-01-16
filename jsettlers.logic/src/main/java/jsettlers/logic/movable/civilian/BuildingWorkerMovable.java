@@ -78,7 +78,7 @@ public class BuildingWorkerMovable extends CivilianMovable implements IBuildingW
 						),
 						sequence(
 							condition(mov -> mov.currentJob.getType() == EBuildingJobType.WAIT),
-							BehaviorTreeHelper.sleep(1000),
+							BehaviorTreeHelper.sleep(mov -> (int)(mov.currentJob.getTime()*1000)),
 							jobFinishedNode()
 						),
 						sequence(
