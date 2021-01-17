@@ -578,10 +578,6 @@ public class BuildingWorkerMovable extends CivilianMovable implements IBuildingW
 	}
 
 	public ShortPoint2D getBuildingPosition() {
-		if (building instanceof Building) {
-			return ((Building) building).getPosition();
-		} else {
-			return null;
-		}
+		return building.getPosition();
 	}
 }

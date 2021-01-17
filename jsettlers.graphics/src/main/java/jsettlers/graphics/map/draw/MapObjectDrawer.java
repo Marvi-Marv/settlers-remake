@@ -886,7 +886,7 @@ public class MapObjectDrawer {
 		float viewX;
 		float viewY;
 		int height = context.getHeight(x, y);
-		int civilisationIndex = movable.getPlayer().getCivilisation().getFileIndex() - 1;
+		int civilisationIndex = movable.getPlayer().getCivilisation().ordinal;
 
 		//Smith action (weapon and tool)
 		EMovableType movableType = movable.getMovableType();
