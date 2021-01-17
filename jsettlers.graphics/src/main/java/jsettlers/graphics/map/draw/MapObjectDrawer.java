@@ -167,7 +167,6 @@ public class MapObjectDrawer {
 	private static final float MOVABLE_SELECTION_MARKER_Z  = 0.9f;
 	private static final float BUILDING_SELECTION_MARKER_Z = 0.9f;
 	private static final float FLAG_ROOF_Z                 = 0.89f;
-	private static final float SMOKE_Z                     = 0.9f;
 	private static final float BACKGROUND_Z                = -0.1f;
 	private final float z_per_y;
 	private final float shadow_offset;
@@ -443,7 +442,7 @@ public class MapObjectDrawer {
 				drawGrowingCorn(x, y, object, color);
 				break;
 			case CORN_ADULT:
-				drawCorn(x, y, color);
+				drawCorn(x, y, object, color);
 				break;
 			case CORN_DEAD:
 				drawDeadCorn(x, y, color);
@@ -887,44 +886,63 @@ public class MapObjectDrawer {
 		float viewX;
 		float viewY;
 		int height = context.getHeight(x, y);
+		int civilisationIndex = movable.getPlayer().getCivilisation().ordinal;
 
-		// smith action
+		//Smith action (weapon and tool)
 		EMovableType movableType = movable.getMovableType();
 		if (movableType == EMovableType.SMITH && movable.getAction() == EMovableAction.ACTION3) {
-			// draw smoke
-			ShortPoint2D smokePosition = movable.getDirection().getNextHexPoint(movable.getPosition(), 2);
-			int smokeX = smokePosition.x;
-			int smokeY = smokePosition.y;
-			if (movable.getDirection() == EDirection.NORTH_WEST) {
-				smokeY--;
+			ShortPoint2D buildingPosition = ((IGraphicsBuildingWorker)movable).getBuildingPosition();
+			int imageProgress = (int) (moveProgress * GfxConstants.COUNT_SMOKESMITH_IMAGES);
+			int smokeX = 0;
+			int smokeY = 0;
+
+			if (((IGraphicsBuildingWorker)movable).getGarrisonedBuildingType() == EBuildingType.WEAPONSMITH) {
+				smokeX = buildingPosition.x + GfxConstants.XY_OFFSET_SMOKESMITH_WEAPONSMITH[civilisationIndex][0];
+				smokeY = buildingPosition.y + GfxConstants.XY_OFFSET_SMOKESMITH_WEAPONSMITH[civilisationIndex][1];
+			} else {
+				smokeX = buildingPosition.x + GfxConstants.XY_OFFSET_SMOKESMITH_TOOLSMITH[civilisationIndex][0];
+				smokeY = buildingPosition.y + GfxConstants.XY_OFFSET_SMOKESMITH_TOOLSMITH[civilisationIndex][1];
 			}
-			viewX = context.getConverter().getViewX(smokeX, smokeY, height);
-			viewY = context.getConverter().getViewY(smokeX, smokeY, height);
-			ImageLink link = new OriginalImageLink(EImageLinkType.SETTLER, 13, 43, (int) (moveProgress * 40));
-			image = imageProvider.getImage(link);
-			image.drawAt(context.getGl(), viewX, viewY, getZ(0, smokeY), color, shade);
+
+			// draw smith smoke
+			drawMovableBuildingAnimation(smokeX, smokeY, 1, color, shade,
+					GfxConstants.FILE_BUILDING[civilisationIndex], GfxConstants.SEQ_SMOKESMITH[civilisationIndex],
+					GfxConstants.COUNT_SMOKESMITH_IMAGES - 1, imageProgress);
 		}
 
-		// melter action
+		//Melter action (gold and iron)
 		if (movableType == EMovableType.MELTER && movable.getAction() == EMovableAction.ACTION1) {
-			int number = (int) (moveProgress * 36);
-			// draw molten metal
-			int metalX = x - 2;
-			int metalY = y - 5;
-			viewX = context.getConverter().getViewX(metalX, metalY, height);
-			viewY = context.getConverter().getViewY(metalX, metalY, height);
-			int metal = (((IGraphicsBuildingWorker)movable).getGarrisonedBuildingType() == EBuildingType.IRONMELT) ? 37 : 36;
-			ImageLink link = new OriginalImageLink(EImageLinkType.SETTLER, 13, metal, number > 24 ? 24 : number);
-			image = imageProvider.getImage(link);
-			image.drawAt(context.getGl(), viewX, viewY, getZ(0, metalY), color, shade);
+			int imageProgress = (int) (moveProgress * GfxConstants.COUNT_SMOKE_IMAGES[civilisationIndex]);
+			ShortPoint2D buildingPosition = ((IGraphicsBuildingWorker)movable).getBuildingPosition();
+			int metalBuildingIndex = 0;
+			int metalX = 0;
+			int metalY = 0;
+			int smokeX = 0;
+			int smokeY = 0;
+
+			if (((IGraphicsBuildingWorker)movable).getGarrisonedBuildingType() == EBuildingType.IRONMELT) {
+				metalBuildingIndex = GfxConstants.SEQ_MELTER_IRON[civilisationIndex];
+				metalX = buildingPosition.x + GfxConstants.XY_OFFSET_METAL_IRONMELT[civilisationIndex][0];
+				metalY = buildingPosition.y + GfxConstants.XY_OFFSET_METAL_IRONMELT[civilisationIndex][1];
+				smokeX = buildingPosition.x + GfxConstants.XY_OFFSET_SMOKE_IRONMELT[civilisationIndex][0];
+				smokeY = buildingPosition.y + GfxConstants.XY_OFFSET_SMOKE_IRONMELT[civilisationIndex][1];
+			} else {
+				metalBuildingIndex = GfxConstants.SEQ_MELTER_GOLD[civilisationIndex];
+				metalX = buildingPosition.x + GfxConstants.XY_OFFSET_METAL_GOLDMELT[civilisationIndex][0];
+				metalY = buildingPosition.y + GfxConstants.XY_OFFSET_METAL_GOLDMELT[civilisationIndex][1];
+				smokeX = buildingPosition.x + GfxConstants.XY_OFFSET_SMOKE_GOLDMELT[civilisationIndex][0];
+				smokeY = buildingPosition.y + GfxConstants.XY_OFFSET_SMOKE_GOLDMELT[civilisationIndex][1];
+			}
+
+			//draw molten metal (iron or gold)
+			drawMovableBuildingAnimation(metalX, metalY, GfxConstants.Z_MELT_RESULT, color, shade,
+					GfxConstants.FILE_BUILDING[civilisationIndex], metalBuildingIndex,
+					GfxConstants.COUNT_MELTER_IMAGES - 1, imageProgress);
+
 			// draw smoke
-			int smokeX = x - 9;
-			int smokeY = y - 14;
-			viewX = context.getConverter().getViewX(smokeX, smokeY, height);
-			viewY = context.getConverter().getViewY(smokeX, smokeY, height);
-			link = new OriginalImageLink(EImageLinkType.SETTLER, 13, 42, number > 35 ? 35 : number);
-			image = imageProvider.getImage(link);
-			image.drawAt(context.getGl(), viewX, viewY, SMOKE_Z, color, shade);
+			drawMovableBuildingAnimation(smokeX, smokeY, GfxConstants.Z_SMOKE, color, shade,
+					GfxConstants.FILE_BUILDING[civilisationIndex], GfxConstants.SEQ_SMOKE[civilisationIndex],
+					GfxConstants.COUNT_SMOKE_IMAGES[civilisationIndex] - 1, imageProgress);
 		}
 
 		if (movable.getAction() == EMovableAction.WALKING) {
@@ -939,6 +957,15 @@ public class MapObjectDrawer {
 		image.drawAt(context.getGl(), viewX, viewY, getZ(0, y), color, shade);
 
 		drawSettlerMark(viewX, viewY, movable);
+	}
+
+	private void drawMovableBuildingAnimation(int x, int y, float z,  Color color, float shade, int file, int sequence, int imageCount, int imageProgress) {
+		int height = context.getHeight(x, y);
+		float viewX = context.getConverter().getViewX(x, y, height);
+		float viewY = context.getConverter().getViewY(x, y, height);
+		ImageLink link = new OriginalImageLink(EImageLinkType.SETTLER, file, sequence, Math.min(imageProgress, imageCount));
+		Image image = imageProvider.getImage(link);
+		image.drawAt(context.getGl(), viewX, viewY, z, color, shade);
 	}
 
 	private float betweenTilesX(int startX, int startY, EDirection direction, float progress) {
@@ -1069,9 +1096,14 @@ public class MapObjectDrawer {
 		draw(seq.getImageSafe(step, () -> "growing-corn"), x, y, 0, color);
 	}
 
-	private void drawCorn(int x, int y, float color) {
+	private void drawCorn(int x, int y, IMapObject object, float color) {
 		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(GfxConstants.FILE_OBJECT, GfxConstants.SEQ_CORN);
-		draw(seq.getImageSafe(GfxConstants.COUNT_CORN_GROW_STEPS, () -> "grown-corn"), x, y, 0, color);
+		int adultImage = GfxConstants.COUNT_CORN_GROW_STEPS;
+		float state = object.getStateProgress();
+		if (state > 0.50f) {
+			adultImage = GfxConstants.INDEX_CORN_POST_GROWTH;
+		}
+		draw(seq.getImageSafe(adultImage, () -> "grown-corn"), x, y, 0, color);
 	}
 
 	private void drawDeadCorn(int x, int y, float color) {

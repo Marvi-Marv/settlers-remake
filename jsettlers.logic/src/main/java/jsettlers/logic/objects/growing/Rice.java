@@ -30,8 +30,8 @@ public final class Rice extends GrowingObject {
 	private static final long serialVersionUID = 8086261556083213266L;
 
 	public static final float GROWTH_DURATION = 11 * 60;
-	public static final float DECOMPOSE_DURATION = 3 * 60;
-	public static final float REMOVE_DURATION = 2 * 60;
+	public static final float DECOMPOSE_DURATION = 2 * 60;
+	public static final float REMOVE_DURATION = 1 * 60;
 
 	/**
 	 * Creates a new Rice.
@@ -41,6 +41,9 @@ public final class Rice extends GrowingObject {
 	public Rice(ShortPoint2D pos) {
 		super(pos, EMapObjectType.RICE_GROWING);
 	}
+
+	@Override
+	protected boolean isDecomposableWithoutCutOff() { return true;}
 
 	@Override
 	protected float getGrowthDuration() {

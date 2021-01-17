@@ -30,8 +30,8 @@ public final class Wine extends GrowingObject {
 	private static final long serialVersionUID = -7535441306083940418L;
 
 	public static final float GROWTH_DURATION = 9 * 60;
-	public static final float DECOMPOSE_DURATION = 3 * 60;
-	public static final float REMOVE_DURATION = 2 * 60;
+	public static final float DECOMPOSE_DURATION = 2 * 60;
+	public static final float REMOVE_DURATION = 1 * 60;
 
 	/**
 	 * Creates a new Wine.
@@ -41,6 +41,9 @@ public final class Wine extends GrowingObject {
 	public Wine(ShortPoint2D pos) {
 		super(pos, EMapObjectType.WINE_GROWING);
 	}
+
+	@Override
+	protected boolean isDecomposableWithoutCutOff() { return true;}
 
 	@Override
 	protected float getGrowthDuration() {

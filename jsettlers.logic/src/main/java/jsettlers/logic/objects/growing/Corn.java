@@ -32,8 +32,8 @@ public final class Corn extends GrowingObject {
 	private static final long serialVersionUID = -7535441306083940418L;
 
 	public static final float GROWTH_DURATION = 10 * 60;
-	public static final float DECOMPOSE_DURATION = 3 * 60;
-	public static final float REMOVE_DURATION = 2 * 60;
+	public static final float DECOMPOSE_DURATION = 2 * 60;
+	public static final float REMOVE_DURATION = 1 * 60;
 
 	/**
 	 * Creates a new Corn.
@@ -43,6 +43,9 @@ public final class Corn extends GrowingObject {
 	public Corn(ShortPoint2D pos) {
 		super(pos, EMapObjectType.CORN_GROWING);
 	}
+
+	@Override
+	protected boolean isDecomposableWithoutCutOff() { return true;}
 
 	@Override
 	protected float getGrowthDuration() {

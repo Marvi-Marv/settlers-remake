@@ -22,6 +22,7 @@ import jsettlers.logic.objects.ProgressingObject;
  * This is an abstract class used for growing objects.
  * 
  * @author Andreas Eberle
+ * @author MarviMarv
  * 
  */
 public abstract class GrowingObject extends ProgressingObject {
@@ -36,7 +37,11 @@ public abstract class GrowingObject extends ProgressingObject {
 		super.setDuration(getGrowthDuration());
 	}
 
+	protected abstract boolean isDecomposableWithoutCutOff();
+
 	protected abstract float getGrowthDuration();
+
+	protected abstract float getDecomposeDuration();
 
 	public boolean isDead() {
 		return this.state == getDeadState();
@@ -57,12 +62,10 @@ public abstract class GrowingObject extends ProgressingObject {
 
 	@Override
 	public boolean cutOff() {
-		super.setDuration(getDecomposeDuration());
+		super.setDuration(getDecomposeDuration()); //this is related to trees but not to corn, wine or rice. schedule(RemoveTimer) will take care instead
 		this.state = getDeadState();
 		return true;
 	}
-
-	protected abstract float getDecomposeDuration();
 
 	@Override
 	public EMapObjectType getObjectType() {
@@ -76,6 +79,10 @@ public abstract class GrowingObject extends ProgressingObject {
 		} else if (state == getDeadState()) {
 		} else {
 			state = getAdultState();
+			if (isDecomposableWithoutCutOff()) {
+				//corn, wine and rice decompose without cutoff, trees do not
+				super.setDuration(getDecomposeDuration());
+			}
 		}
 	}
 }
