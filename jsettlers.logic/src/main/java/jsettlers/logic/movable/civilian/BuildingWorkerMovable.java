@@ -27,6 +27,7 @@ import jsettlers.logic.buildings.Building;
 import jsettlers.logic.buildings.workers.DockyardBuilding;
 import jsettlers.logic.buildings.workers.MillBuilding;
 import jsettlers.logic.buildings.workers.SlaughterhouseBuilding;
+import jsettlers.logic.buildings.workers.WorkerAnimationBuilding;
 import jsettlers.logic.map.grid.partition.manager.manageables.IManageableWorker;
 import jsettlers.logic.map.grid.partition.manager.manageables.interfaces.IWorkerRequestBuilding;
 import jsettlers.logic.movable.Movable;
@@ -289,6 +290,11 @@ public class BuildingWorkerMovable extends CivilianMovable implements IBuildingW
 						sequence(
 							condition(mov -> mov.currentJob.getType() == EBuildingJobType.HEAL),
 							nodeToJob(condition(BuildingWorkerMovable::heal))
+						),
+						sequence(
+								condition(mov -> mov.currentJob.getType() == EBuildingJobType.BUILDING_ANIMATION),
+								BehaviorTreeHelper.sleep(mov -> ((WorkerAnimationBuilding) mov.building).requestAnimation()),
+								jobFinishedNode()
 						),
 						// unknown job type
 						BehaviorTreeHelper.action(BuildingWorkerMovable::abortJob)

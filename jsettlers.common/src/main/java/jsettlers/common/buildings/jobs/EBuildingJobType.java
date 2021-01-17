@@ -336,4 +336,9 @@ public enum EBuildingJobType {
 	 * Set the HP to maximum of a human and player controlled settler at the given position.
 	 */
 	HEAL,
+
+	/**
+	 * Invokes the animation of the related building.
+	 */
+	BUILDING_ANIMATION,
 }

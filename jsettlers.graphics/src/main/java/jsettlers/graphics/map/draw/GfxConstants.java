@@ -39,7 +39,7 @@ public final class GfxConstants {
 
     public static final int[] COUNT_SMOKE_IMAGES = {36, 29, 29, 36};
     public static final int[] SEQ_SMOKE = {42, 42, 44, 45};
-    public static final float Z_SMOKE = 1f;
+    public static final float Z_SMOKE = 0.9f;
 
     public static final int COUNT_SMOKESMITH_IMAGES = 40;
     public static final int[] SEQ_SMOKESMITH = {43, 44, 46, 46};

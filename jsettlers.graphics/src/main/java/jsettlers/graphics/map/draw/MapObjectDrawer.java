@@ -1335,14 +1335,60 @@ public class MapObjectDrawer {
 		BuildingVariant variant = building.getBuildingVariant();
 
 		float state = building.getStateProgress();
+		int civilisationIndex = variant.getCivilisation().ordinal;
 
 		if (state >= 0.99) {
-			if (variant.isVariantOf(EBuildingType.SLAUGHTERHOUSE) && ((IBuilding.ISoundRequestable) building).isSoundRequested()) {
-				playSound(building, SOUND_SLAUGHTERHOUSE, x, y);
+
+			if (variant.isVariantOf(EBuildingType.GOLDMELT) || variant.isVariantOf(EBuildingType.IRONMELT)) {
+				if (building instanceof IBuilding.IWorkAnimation) { //prevent BuildingCreatorApp from crashing
+					IBuilding.IWorkAnimation aBuilding = (IBuilding.IWorkAnimation) building;
+
+					int metalBuildingIndex = GfxConstants.SEQ_MELTER_IRON[civilisationIndex];
+					int metalX = x + GfxConstants.XY_OFFSET_METAL_IRONMELT[civilisationIndex][0];
+					int metalY = y + GfxConstants.XY_OFFSET_METAL_IRONMELT[civilisationIndex][1];
+					int smokeX = x + GfxConstants.XY_OFFSET_SMOKE_IRONMELT[civilisationIndex][0];
+					int smokeY = y + GfxConstants.XY_OFFSET_SMOKE_IRONMELT[civilisationIndex][1];
+
+					if (variant.isVariantOf(EBuildingType.GOLDMELT)) {
+						metalBuildingIndex = GfxConstants.SEQ_MELTER_GOLD[civilisationIndex];
+						metalX = x + GfxConstants.XY_OFFSET_METAL_GOLDMELT[civilisationIndex][0];
+						metalY = y + GfxConstants.XY_OFFSET_METAL_GOLDMELT[civilisationIndex][1];
+						smokeX = x + GfxConstants.XY_OFFSET_SMOKE_GOLDMELT[civilisationIndex][0];
+						smokeY = y + GfxConstants.XY_OFFSET_SMOKE_GOLDMELT[civilisationIndex][1];
+					}
+
+					for (int i = 0; i < aBuilding.getAnimationCount(); i++) {
+						if (aBuilding.isAnimationRequested(i)) {
+							if (i == 0) {
+								// draw smoke
+								Sequence<? extends Image> smoke = this.imageProvider.getSettlerSequence(GfxConstants.FILE_BUILDING[civilisationIndex], GfxConstants.SEQ_SMOKE[civilisationIndex]);
+								int imageProgress = Math.min((int) (aBuilding.getAnimationProgress(i) * smoke.length()), smoke.length() - 1);
+								draw(smoke.getImageSafe(imageProgress, () -> "melt-smoke"), smokeX, smokeY, GfxConstants.Z_SMOKE, color);
+							} else if (i == 1) {
+								//draw molten metal
+								Sequence<? extends Image> meltProgress = this.imageProvider.getSettlerSequence(GfxConstants.FILE_BUILDING[civilisationIndex], metalBuildingIndex);
+								int imageProgress = Math.min((int) (aBuilding.getAnimationProgress(i) * meltProgress.length()), meltProgress.length() - 1);
+								draw(meltProgress.getImageSafe(imageProgress, () -> "melt-metal"), metalX, metalY, 0, color);
+							} else if (i == 2) {
+								//draw melt result (iron or gold)
+								aBuilding.getAnimationProgress(i); //update timer
+								Sequence<? extends Image> meltResult = this.imageProvider.getSettlerSequence(GfxConstants.FILE_BUILDING[civilisationIndex], metalBuildingIndex);
+								draw(meltResult.getImageSafe(meltResult.length() - 1, () -> "melt-result"), metalX, metalY, 0, color);
+							}
+						}
+					}
+				}
+			}
+
+			if (variant.isVariantOf(EBuildingType.SLAUGHTERHOUSE)) {
+				//prevent BuildingCreatorApp from crashing
+				if (building instanceof IBuilding.ISoundRequestable && ((IBuilding.ISoundRequestable) building).isSoundRequested()) {
+					playSound(building, SOUND_SLAUGHTERHOUSE, x, y);
+				}
 			}
 
 			if (variant.isVariantOf(EBuildingType.MILL) && ((IBuilding.IMill) building).isRotating()) {
-				Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(GfxConstants.FILE_BUILDING[variant.getCivilisation().getFileIndex() - 1], GfxConstants.SEQ_MILL_ROTATION[variant.getCivilisation().getFileIndex() - 1]);
+				Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(GfxConstants.FILE_BUILDING[civilisationIndex], GfxConstants.SEQ_MILL_ROTATION[civilisationIndex]);
 
 				if (seq.length() > 0) {
 					int i = getAnimationStep(x, y);
