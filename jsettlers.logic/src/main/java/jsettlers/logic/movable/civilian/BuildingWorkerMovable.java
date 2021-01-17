@@ -23,6 +23,7 @@ import jsettlers.common.movable.EMovableAction;
 import jsettlers.common.movable.EMovableType;
 import jsettlers.common.player.ECivilisation;
 import jsettlers.common.position.ShortPoint2D;
+import jsettlers.logic.buildings.Building;
 import jsettlers.logic.buildings.workers.DockyardBuilding;
 import jsettlers.logic.buildings.workers.MillBuilding;
 import jsettlers.logic.buildings.workers.SlaughterhouseBuilding;
@@ -574,5 +575,13 @@ public class BuildingWorkerMovable extends CivilianMovable implements IBuildingW
 
 	private boolean pathStep() {
 		return isJobless() || building != null; // TODO
+	}
+
+	public ShortPoint2D getBuildingPosition() {
+		if (building instanceof Building) {
+			return ((Building) building).getPosition();
+		} else {
+			return null;
+		}
 	}
 }

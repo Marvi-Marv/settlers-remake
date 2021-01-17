@@ -174,4 +174,6 @@ public class MovableObjectContainer implements ObjectContainer, IGraphicsMovable
 	public boolean isUncoveredBy(byte teamId) {
 		return true;
 	}
+
+	public ShortPoint2D getBuildingPosition() { return null; }
 }
