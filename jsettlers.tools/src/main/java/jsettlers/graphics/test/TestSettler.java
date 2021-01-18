@@ -23,7 +23,6 @@ import jsettlers.common.movable.EDirection;
 import jsettlers.common.movable.EEffectType;
 import jsettlers.common.movable.EMovableAction;
 import jsettlers.common.movable.EMovableType;
-import jsettlers.common.movable.IGraphicsBuildingWorker;
 import jsettlers.common.movable.IGraphicsCargoShip;
 import jsettlers.common.movable.IGraphicsFerry;
 import jsettlers.common.movable.IGraphicsMovable;
@@ -32,14 +31,14 @@ import jsettlers.common.player.IPlayer;
 import jsettlers.common.position.ShortPoint2D;
 import jsettlers.common.selectable.ESelectionType;
 
-public class TestSettler implements IGraphicsMovable, IGraphicsFerry, IGraphicsCargoShip, IGraphicsThief, IGraphicsBuildingWorker {
+public class TestSettler implements IGraphicsMovable, IGraphicsFerry, IGraphicsCargoShip, IGraphicsThief {
 
-	private final IPlayer      player;
+	private final IPlayer player;
 	private final EMovableType type;
-	
-	private EDirection    direction;
-	private TestTile      position;
-	private short         progress = 0;
+
+	private EDirection direction;
+	private TestTile position;
+	private short progress = 0;
 	private EMaterialType material = EMaterialType.NO_MATERIAL;
 
 	TestSettler(EDirection direction, EMovableType type, TestTile tile, byte player) {
@@ -127,7 +126,7 @@ public class TestSettler implements IGraphicsMovable, IGraphicsFerry, IGraphicsC
 
 	@Override
 	public List<IGraphicsMovable> getPassengers() {
-		return (type == EMovableType.FERRY)? Lists2.of() : null;
+		return (type == EMovableType.FERRY) ? Lists2.of() : null;
 	}
 
 	@Override
@@ -143,11 +142,6 @@ public class TestSettler implements IGraphicsMovable, IGraphicsFerry, IGraphicsC
 	@Override
 	public int getCargoCount(int stack) {
 		return 0;
-	}
-
-	@Override
-	public EBuildingType getGarrisonedBuildingType() {
-		return null;
 	}
 
 	@Override
@@ -188,6 +182,4 @@ public class TestSettler implements IGraphicsMovable, IGraphicsFerry, IGraphicsC
 	public boolean isUncoveredBy(byte teamId) {
 		return true;
 	}
-
-	public ShortPoint2D getBuildingPosition() { return null; }
 }

@@ -43,7 +43,6 @@ import jsettlers.common.movable.EEffectType;
 import jsettlers.common.movable.EMovableAction;
 import jsettlers.common.movable.EMovableType;
 import jsettlers.common.movable.ESoldierClass;
-import jsettlers.common.movable.IGraphicsBuildingWorker;
 import jsettlers.common.movable.IGraphicsCargoShip;
 import jsettlers.common.movable.IGraphicsFerry;
 import jsettlers.common.movable.IGraphicsMovable;

@@ -345,15 +345,6 @@ public class BuildingWorkerMovable extends CivilianMovable implements IBuildingW
 		return super.isBusy() || !registered;
 	}
 
-	@Override
-	public EBuildingType getGarrisonedBuildingType() {
-		if(building != null) {
-			return building.getBuildingVariant().getType();
-		} else {
-			return null;
-		}
-	}
-
 	private void readObject(ObjectInputStream ois) throws IOException, ClassNotFoundException {
 		ois.defaultReadObject();
 		String currentJobName = ois.readUTF();
@@ -590,9 +581,5 @@ public class BuildingWorkerMovable extends CivilianMovable implements IBuildingW
 
 	private boolean pathStep() {
 		return isJobless() || building != null; // TODO
-	}
-
-	public ShortPoint2D getBuildingPosition() {
-		return building.getPosition();
 	}
 }
