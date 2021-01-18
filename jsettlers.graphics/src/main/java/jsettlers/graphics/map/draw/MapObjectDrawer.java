@@ -1336,47 +1336,105 @@ public class MapObjectDrawer {
 
 		float state = building.getStateProgress();
 		int civilisationIndex = variant.getCivilisation().ordinal;
+		byte fow = visibleGrid != null ? visibleGrid[x][y] : CommonConstants.FOG_OF_WAR_VISIBLE;
+		Color trueColor = MapDrawContext.getPlayerColor(building.getPlayer().getPlayerId());
 
 		if (state >= 0.99) {
 
-			if (variant.isVariantOf(EBuildingType.GOLDMELT) || variant.isVariantOf(EBuildingType.IRONMELT)) {
-				if (building instanceof IBuilding.IWorkAnimation) { //prevent BuildingCreatorApp from crashing
-					IBuilding.IWorkAnimation aBuilding = (IBuilding.IWorkAnimation) building;
+			//TODO: draw function does not take into account the height of the terrain, therefore the animation position is different depending on the height of the terrain = the converter seems to be wrong
+			if (building instanceof IBuilding.IWorkAnimation) { //prevent BuildingCreatorApp from crashing
+				IBuilding.IWorkAnimation aBuilding = (IBuilding.IWorkAnimation) building;
+				boolean drawSingleAnimation = false;
+				int animationIndex = 0;
+				int animationX = 0;
+				int animationY = 0;
+				float animationZ = 0;
+				int animationSequence = 0;
 
-					int metalBuildingIndex = GfxConstants.SEQ_MELTER_IRON[civilisationIndex];
-					int metalX = x + GfxConstants.XY_OFFSET_METAL_IRONMELT[civilisationIndex][0];
-					int metalY = y + GfxConstants.XY_OFFSET_METAL_IRONMELT[civilisationIndex][1];
-					int smokeX = x + GfxConstants.XY_OFFSET_SMOKE_IRONMELT[civilisationIndex][0];
-					int smokeY = y + GfxConstants.XY_OFFSET_SMOKE_IRONMELT[civilisationIndex][1];
+				switch (aBuilding.getBuildingVariant().getType()) {
+					case CHARCOAL_BURNER:
+						if (aBuilding.isAnimationRequested(0)) {
+							animationX = x + GfxConstants.XY_OFFSET_SMOKE_CHARCOALBURNER[0];
+							animationY = y + GfxConstants.XY_OFFSET_SMOKE_CHARCOALBURNER[1];
+							animationZ = GfxConstants.Z_SMOKE;
+							animationSequence = GfxConstants.SEQ_SMOKE[civilisationIndex];
+							drawSingleAnimation = true;
+						}
+						break;
+					case BAKER:
+						if (aBuilding.isAnimationRequested(0)) {
+							animationX = x + GfxConstants.XY_OFFSET_SMOKE_BAKER[civilisationIndex][0];
+							animationY = y + GfxConstants.XY_OFFSET_SMOKE_BAKER[civilisationIndex][1];
+							animationZ = GfxConstants.Z_SMOKE;
+							animationSequence = GfxConstants.SEQ_SMOKE[civilisationIndex];
+							drawSingleAnimation = true;
+						}
+						break;
+					case TOOLSMITH:
+					case WEAPONSMITH:
+						if (aBuilding.isAnimationRequested(0)) {
+							animationX = x + GfxConstants.XY_OFFSET_SMOKESMITH_WEAPONSMITH[civilisationIndex][0];
+							animationY = y + GfxConstants.XY_OFFSET_SMOKESMITH_WEAPONSMITH[civilisationIndex][1];
 
-					if (variant.isVariantOf(EBuildingType.GOLDMELT)) {
-						metalBuildingIndex = GfxConstants.SEQ_MELTER_GOLD[civilisationIndex];
-						metalX = x + GfxConstants.XY_OFFSET_METAL_GOLDMELT[civilisationIndex][0];
-						metalY = y + GfxConstants.XY_OFFSET_METAL_GOLDMELT[civilisationIndex][1];
-						smokeX = x + GfxConstants.XY_OFFSET_SMOKE_GOLDMELT[civilisationIndex][0];
-						smokeY = y + GfxConstants.XY_OFFSET_SMOKE_GOLDMELT[civilisationIndex][1];
-					}
+							if (variant.isVariantOf(EBuildingType.TOOLSMITH)) {
+								animationX = x + GfxConstants.XY_OFFSET_SMOKESMITH_TOOLSMITH[civilisationIndex][0];
+								animationY = y + GfxConstants.XY_OFFSET_SMOKESMITH_TOOLSMITH[civilisationIndex][1];
+							}
 
-					for (int i = 0; i < aBuilding.getAnimationCount(); i++) {
-						if (aBuilding.isAnimationRequested(i)) {
-							if (i == 0) {
-								// draw smoke
-								Sequence<? extends Image> smoke = this.imageProvider.getSettlerSequence(GfxConstants.FILE_BUILDING[civilisationIndex], GfxConstants.SEQ_SMOKE[civilisationIndex]);
-								int imageProgress = Math.min((int) (aBuilding.getAnimationProgress(i) * smoke.length()), smoke.length() - 1);
-								draw(smoke.getImageSafe(imageProgress, () -> "melt-smoke"), smokeX, smokeY, GfxConstants.Z_SMOKE, color);
-							} else if (i == 1) {
-								//draw molten metal
-								Sequence<? extends Image> meltProgress = this.imageProvider.getSettlerSequence(GfxConstants.FILE_BUILDING[civilisationIndex], metalBuildingIndex);
-								int imageProgress = Math.min((int) (aBuilding.getAnimationProgress(i) * meltProgress.length()), meltProgress.length() - 1);
-								draw(meltProgress.getImageSafe(imageProgress, () -> "melt-metal"), metalX, metalY, 0, color);
-							} else if (i == 2) {
-								//draw melt result (iron or gold)
-								aBuilding.getAnimationProgress(i); //update timer
-								Sequence<? extends Image> meltResult = this.imageProvider.getSettlerSequence(GfxConstants.FILE_BUILDING[civilisationIndex], metalBuildingIndex);
-								draw(meltResult.getImageSafe(meltResult.length() - 1, () -> "melt-result"), metalX, metalY, 0, color);
+							animationZ = GfxConstants.Z_SMOKE;
+							animationSequence = GfxConstants.SEQ_SMOKESMITH[civilisationIndex];
+							drawSingleAnimation = true;
+						}
+						break;
+					case GOLDMELT:
+					case IRONMELT:
+						drawSingleAnimation = false;
+
+						int metalBuildingIndex = GfxConstants.SEQ_MELTER_IRON[civilisationIndex];
+						int metalX = x + GfxConstants.XY_OFFSET_METAL_IRONMELT[civilisationIndex][0];
+						int metalY = y + GfxConstants.XY_OFFSET_METAL_IRONMELT[civilisationIndex][1];
+						int smokeX = x + GfxConstants.XY_OFFSET_SMOKE_IRONMELT[civilisationIndex][0];
+						int smokeY = y + GfxConstants.XY_OFFSET_SMOKE_IRONMELT[civilisationIndex][1];
+
+						if (variant.isVariantOf(EBuildingType.GOLDMELT)) {
+							metalBuildingIndex = GfxConstants.SEQ_MELTER_GOLD[civilisationIndex];
+							metalX = x + GfxConstants.XY_OFFSET_METAL_GOLDMELT[civilisationIndex][0];
+							metalY = y + GfxConstants.XY_OFFSET_METAL_GOLDMELT[civilisationIndex][1];
+							smokeX = x + GfxConstants.XY_OFFSET_SMOKE_GOLDMELT[civilisationIndex][0];
+							smokeY = y + GfxConstants.XY_OFFSET_SMOKE_GOLDMELT[civilisationIndex][1];
+						}
+
+						for (int i = 0; i < aBuilding.getAnimationCount(); i++) {
+							if (aBuilding.isAnimationRequested(i)) {
+								if (i == 0) {
+									// draw smoke
+									Sequence<? extends Image> smoke = this.imageProvider.getSettlerSequence(GfxConstants.FILE_BUILDING[civilisationIndex], GfxConstants.SEQ_SMOKE[civilisationIndex]);
+									int imageProgress = Math.min((int) (aBuilding.getAnimationProgress(i) * smoke.length()), smoke.length() - 1);
+									draw(smoke.getImageSafe(imageProgress, () -> "melt-smoke"), smokeX, smokeY, GfxConstants.Z_SMOKE, color);
+								} else if (i == 1) {
+									//draw molten metal
+									Sequence<? extends Image> meltProgress = this.imageProvider.getSettlerSequence(GfxConstants.FILE_BUILDING[civilisationIndex], metalBuildingIndex);
+									int imageProgress = Math.min((int) (aBuilding.getAnimationProgress(i) * meltProgress.length()), meltProgress.length() - 1);
+									draw(meltProgress.getImageSafe(imageProgress, () -> "melt-metal"), metalX, metalY, GfxConstants.Z_MELT_RESULT, color);
+								} else if (i == 2) {
+									//draw melt result (iron or gold)
+									aBuilding.getAnimationProgress(i); //update timer
+									Sequence<? extends Image> meltResult = this.imageProvider.getSettlerSequence(GfxConstants.FILE_BUILDING[civilisationIndex], metalBuildingIndex);
+									draw(meltResult.getImageSafe(meltResult.length() - 1, () -> "melt-result"), metalX, metalY, GfxConstants.Z_MELT_RESULT, color);
+								}
 							}
 						}
-					}
+						break;
+					default:
+						drawSingleAnimation = false;
+						break;
+				}
+
+				// draw animation
+				if (drawSingleAnimation) {
+					Sequence<? extends Image> animation = this.imageProvider.getSettlerSequence(GfxConstants.FILE_BUILDING[civilisationIndex], animationSequence);
+					int imageProgress = Math.min((int) (aBuilding.getAnimationProgress(animationIndex) * animation.length()), animation.length() - 1);
+					draw(animation.getImageSafe(imageProgress, () -> "animation"), animationX, animationY, animationZ, color);
 				}
 			}
 
@@ -1393,7 +1451,7 @@ public class MapObjectDrawer {
 				if (seq.length() > 0) {
 					int i = getAnimationStep(x, y);
 					int step = i % seq.length();
-					drawOnlyImage(seq.getImageSafe(step, () -> "mill-" + step), x, y, 0, MapDrawContext.getPlayerColor(building.getPlayer().getPlayerId()), color);
+					drawOnlyImage(seq.getImageSafe(step, () -> "mill-" + step), x, y, 0, trueColor, color);
 					ImageLink[] images = variant.getImages();
 					if (images.length > 0) {
 						Image image = imageProvider.getImage(images[0]);
@@ -1414,8 +1472,6 @@ public class MapObjectDrawer {
 					Image image = imageProvider.getImage(images[0]);
 					draw(image, x, y, building.getBuildingVariant().isVariantOf(EBuildingType.MARKET_PLACE) ? BACKGROUND_Z : 0, null, color);
 				}
-
-				byte fow = visibleGrid != null ? visibleGrid[x][y] : CommonConstants.FOG_OF_WAR_VISIBLE;
 
 				if (building instanceof IOccupied && fow > CommonConstants.FOG_OF_WAR_EXPLORED) {
 					drawOccupiers(x, y, (IOccupied) building, color);

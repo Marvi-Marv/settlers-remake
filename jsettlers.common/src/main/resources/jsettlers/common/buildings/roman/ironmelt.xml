@@ -177,7 +177,7 @@
 	<job name="gopot4" 		type="WALK" 		successjob="gopot6" 	failjob="gohome" direction="EAST" />
 	<job name="gopot6" 		type="LOOK_AT" 		successjob="melt"    	failjob="gohome" direction="NORTH_WEST" />
 
-	<job name="melt" 		type="BUILDING_ANIMATION"	successjob="takeiron" 	failjob="gohome" />
+	<job name="melt" 		type="BUILDING_ANIMATION"	successjob="takeiron" 	failjob="gohome" takeMaterialFromMap="false" />
 
 	<!-- take the iron -->
 	<job name="takeiron" 	type="TAKE" 		successjob="dropIron1" 	failjob="gohome" material="IRON"  takeMaterialFromMap="false" />

@@ -35,7 +35,7 @@ public final class GfxConstants {
     public static final int COUNT_MELTER_IMAGES = 25;
     public static final int[] SEQ_MELTER_GOLD = {36, 36, 38, 39};
     public static final int[] SEQ_MELTER_IRON = {37, 37, 39, 40};
-    public static final float Z_MELT_RESULT = 0.9f;
+    public static final float Z_MELT_RESULT = 0f;
 
     public static final int[] COUNT_SMOKE_IMAGES = {36, 29, 29, 36};
     public static final int[] SEQ_SMOKE = {42, 42, 44, 45};
@@ -51,7 +51,9 @@ public final class GfxConstants {
     public static final int[][] XY_OFFSET_SMOKE_GOLDMELT = {{-7, -10},{-5, -6},{-5, -5},{-7, -10}};
     public static final int[][] XY_OFFSET_METAL_GOLDMELT = {{0, 0},{0, 0},{0, 0},{0, 0}};
 
-    public static final int[][] XY_OFFSET_SMOKE_BAKER = {{-7, -9},{-5, -6},{-5, -5},{-7, -10}};
+    public static final int[][] XY_OFFSET_SMOKE_BAKER = {{-3, -5},{1, -2},{-2, -3},{-1, -7}};
+
+    public static final int[] XY_OFFSET_SMOKE_CHARCOALBURNER = {-4, -6};
 
     public static final int[][] XY_OFFSET_SMOKESMITH_WEAPONSMITH = {{-3, -2},{-3, -2},{-3, -2},{-3, -2}};
     public static final int[][] XY_OFFSET_SMOKESMITH_TOOLSMITH = {{-3, -2},{-2, -1},{-2, -1},{-3, -2}};

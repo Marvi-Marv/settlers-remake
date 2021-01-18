@@ -292,7 +292,16 @@ public class BuildingWorkerMovable extends CivilianMovable implements IBuildingW
 							nodeToJob(condition(BuildingWorkerMovable::heal))
 						),
 						sequence(
-								condition(mov -> mov.currentJob.getType() == EBuildingJobType.BUILDING_ANIMATION),
+								//play animation and continue movable work
+								condition(mov -> mov.currentJob.getType() == EBuildingJobType.BUILDING_ANIMATION && mov.currentJob.isTakeMaterialFromMap()),
+								BehaviorTreeHelper.action(mov -> {
+									((WorkerAnimationBuilding) mov.building).requestAnimation();
+								}),
+								jobFinishedNode()
+						),
+						sequence(
+								//play animation and stop movable work
+								condition(mov -> mov.currentJob.getType() == EBuildingJobType.BUILDING_ANIMATION && !mov.currentJob.isTakeMaterialFromMap()),
 								BehaviorTreeHelper.sleep(mov -> ((WorkerAnimationBuilding) mov.building).requestAnimation()),
 								jobFinishedNode()
 						),
