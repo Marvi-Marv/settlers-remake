@@ -886,64 +886,6 @@ public class MapObjectDrawer {
 		float viewX;
 		float viewY;
 		int height = context.getHeight(x, y);
-		int civilisationIndex = movable.getPlayer().getCivilisation().ordinal;
-
-		//Smith action (weapon and tool)
-		EMovableType movableType = movable.getMovableType();
-		if (movableType == EMovableType.SMITH && movable.getAction() == EMovableAction.ACTION3) {
-			ShortPoint2D buildingPosition = ((IGraphicsBuildingWorker)movable).getBuildingPosition();
-			int imageProgress = (int) (moveProgress * GfxConstants.COUNT_SMOKESMITH_IMAGES);
-			int smokeX = 0;
-			int smokeY = 0;
-
-			if (((IGraphicsBuildingWorker)movable).getGarrisonedBuildingType() == EBuildingType.WEAPONSMITH) {
-				smokeX = buildingPosition.x + GfxConstants.XY_OFFSET_SMOKESMITH_WEAPONSMITH[civilisationIndex][0];
-				smokeY = buildingPosition.y + GfxConstants.XY_OFFSET_SMOKESMITH_WEAPONSMITH[civilisationIndex][1];
-			} else {
-				smokeX = buildingPosition.x + GfxConstants.XY_OFFSET_SMOKESMITH_TOOLSMITH[civilisationIndex][0];
-				smokeY = buildingPosition.y + GfxConstants.XY_OFFSET_SMOKESMITH_TOOLSMITH[civilisationIndex][1];
-			}
-
-			// draw smith smoke
-			drawMovableBuildingAnimation(smokeX, smokeY, 1, color, shade,
-					GfxConstants.FILE_BUILDING[civilisationIndex], GfxConstants.SEQ_SMOKESMITH[civilisationIndex],
-					GfxConstants.COUNT_SMOKESMITH_IMAGES - 1, imageProgress);
-		}
-
-		//Melter action (gold and iron)
-		if (movableType == EMovableType.MELTER && movable.getAction() == EMovableAction.ACTION1) {
-			int imageProgress = (int) (moveProgress * GfxConstants.COUNT_SMOKE_IMAGES[civilisationIndex]);
-			ShortPoint2D buildingPosition = ((IGraphicsBuildingWorker)movable).getBuildingPosition();
-			int metalBuildingIndex = 0;
-			int metalX = 0;
-			int metalY = 0;
-			int smokeX = 0;
-			int smokeY = 0;
-
-			if (((IGraphicsBuildingWorker)movable).getGarrisonedBuildingType() == EBuildingType.IRONMELT) {
-				metalBuildingIndex = GfxConstants.SEQ_MELTER_IRON[civilisationIndex];
-				metalX = buildingPosition.x + GfxConstants.XY_OFFSET_METAL_IRONMELT[civilisationIndex][0];
-				metalY = buildingPosition.y + GfxConstants.XY_OFFSET_METAL_IRONMELT[civilisationIndex][1];
-				smokeX = buildingPosition.x + GfxConstants.XY_OFFSET_SMOKE_IRONMELT[civilisationIndex][0];
-				smokeY = buildingPosition.y + GfxConstants.XY_OFFSET_SMOKE_IRONMELT[civilisationIndex][1];
-			} else {
-				metalBuildingIndex = GfxConstants.SEQ_MELTER_GOLD[civilisationIndex];
-				metalX = buildingPosition.x + GfxConstants.XY_OFFSET_METAL_GOLDMELT[civilisationIndex][0];
-				metalY = buildingPosition.y + GfxConstants.XY_OFFSET_METAL_GOLDMELT[civilisationIndex][1];
-				smokeX = buildingPosition.x + GfxConstants.XY_OFFSET_SMOKE_GOLDMELT[civilisationIndex][0];
-				smokeY = buildingPosition.y + GfxConstants.XY_OFFSET_SMOKE_GOLDMELT[civilisationIndex][1];
-			}
-
-			//draw molten metal (iron or gold)
-			drawMovableBuildingAnimation(metalX, metalY, GfxConstants.Z_MELT_RESULT, color, shade,
-					GfxConstants.FILE_BUILDING[civilisationIndex], metalBuildingIndex,
-					GfxConstants.COUNT_MELTER_IMAGES - 1, imageProgress);
-
-			// draw smoke
-			drawMovableBuildingAnimation(smokeX, smokeY, GfxConstants.Z_SMOKE, color, shade,
-					GfxConstants.FILE_BUILDING[civilisationIndex], GfxConstants.SEQ_SMOKE[civilisationIndex],
-					GfxConstants.COUNT_SMOKE_IMAGES[civilisationIndex] - 1, imageProgress);
-		}
 
 		if (movable.getAction() == EMovableAction.WALKING) {
 			viewX = betweenTilesX(x, y, movable.getDirection().getInverseDirection(), 1-moveProgress);
@@ -957,15 +899,6 @@ public class MapObjectDrawer {
 		image.drawAt(context.getGl(), viewX, viewY, getZ(0, y), color, shade);
 
 		drawSettlerMark(viewX, viewY, movable);
-	}
-
-	private void drawMovableBuildingAnimation(int x, int y, float z,  Color color, float shade, int file, int sequence, int imageCount, int imageProgress) {
-		int height = context.getHeight(x, y);
-		float viewX = context.getConverter().getViewX(x, y, height);
-		float viewY = context.getConverter().getViewY(x, y, height);
-		ImageLink link = new OriginalImageLink(EImageLinkType.SETTLER, file, sequence, Math.min(imageProgress, imageCount));
-		Image image = imageProvider.getImage(link);
-		image.drawAt(context.getGl(), viewX, viewY, z, color, shade);
 	}
 
 	private float betweenTilesX(int startX, int startY, EDirection direction, float progress) {
