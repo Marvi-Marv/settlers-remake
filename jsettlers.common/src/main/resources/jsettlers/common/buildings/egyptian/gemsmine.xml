@@ -8,40 +8,45 @@
 	<ground groundtype="EARTH"/>
 	<ground groundtype="FLATTENED"/>
 
-	<blocked dx="2" dy="2" />
-	<blocked dx="2" dy="0" />
-	<blocked dx="1" dy="-1" />
-	<blocked dx="1" dy="0" />
-	<blocked dx="1" dy="1" />
-	<blocked dx="1" dy="2" />
-	<blocked dx="0" dy="1" />
-	<blocked dx="0" dy="0" />
-	<blocked dx="0" dy="-1" />
-	<blocked dx="0" dy="-2" />
-	<blocked dx="-2" dy="-2" />
-	<blocked dx="-1" dy="-2" />
-	<blocked dx="-1" dy="-1" />
-	<blocked dx="-2" dy="-1" />
-	<blocked dx="-1" dy="0" />
-	<blocked dx="-2" dy="0" />
-	<blocked dx="-2" dy="1" />
-	<blocked dx="0" dy="2" />
-	<blocked dx="2" dy="1" />
-	<blocked dx="3" dy="2" />
-	<blocked dx="3" dy="1" />
-	<blocked dx="3" dy="0" />
-	<blocked dx="2" dy="-1" />
-	<blocked dx="1" dy="-2" />
-	<blocked dx="0" dy="-3" />
-	<blocked dx="-1" dy="-4" />
-	<blocked dx="-1" dy="-3" />
-	<blocked dx="-2" dy="-3" />
-	<blocked dx="-2" dy="-4" />
-	<blocked dx="-3" dy="0" />
-	<blocked dx="-3" dy="-1" />
-	<blocked dx="-3" dy="-2" />
-	<blocked dx="-3" dy="-3" />
-	<blocked dx="-3" dy="-4" />
+	<blocked dx="2" dy="2" block="true" />
+	<blocked dx="2" dy="0" block="true" />
+	<blocked dx="1" dy="-1" block="true" />
+	<blocked dx="1" dy="0" block="true" />
+	<blocked dx="1" dy="1" block="true" />
+	<blocked dx="1" dy="2" block="true" />
+	<blocked dx="0" dy="1" block="true" />
+	<blocked dx="0" dy="0" block="true" />
+	<blocked dx="0" dy="-1" block="true" />
+	<blocked dx="0" dy="-2" block="true" />
+	<blocked dx="-2" dy="-2" block="true" />
+	<blocked dx="-1" dy="-2" block="true" />
+	<blocked dx="-1" dy="-1" block="true" />
+	<blocked dx="-2" dy="-1" block="true" />
+	<blocked dx="-1" dy="0" block="true" />
+	<blocked dx="-2" dy="0" block="true" />
+	<blocked dx="-2" dy="1" block="true" />
+	<blocked dx="0" dy="2" block="true" />
+	<blocked dx="2" dy="1" block="true" />
+	<blocked dx="3" dy="2" block="true" />
+	<blocked dx="3" dy="1" block="true" />
+	<blocked dx="3" dy="0" block="true" />
+	<blocked dx="2" dy="-1" block="true" />
+	<blocked dx="1" dy="-2" block="true" />
+	<blocked dx="0" dy="-3" block="true" />
+	<blocked dx="-1" dy="-4" block="true" />
+	<blocked dx="-1" dy="-3" block="true" />
+	<blocked dx="-2" dy="-3" block="true" />
+	<blocked dx="-2" dy="-4" block="true" />
+	<blocked dx="-3" dy="0" block="true" />
+	<blocked dx="-3" dy="-1" block="true" />
+	<blocked dx="-3" dy="-2" block="true" />
+	<blocked dx="-3" dy="-3" block="true" />
+	<blocked dx="-3" dy="-4" block="true" />
+	<blocked dx="-4" dy="-1" block="true" />
+	<blocked dx="-4" dy="0" block="true" />
+	<blocked dx="-3" dy="1" block="true" />
+	<blocked dx="2" dy="-2" block="true" />
+	<blocked dx="3" dy="-1" block="true" />
 
 	<blocked dx="1" dy="3" block="false" />
 	<blocked dx="2" dy="3" block="false" />
@@ -49,7 +54,6 @@
 	<blocked dx="3" dy="4" block="false" />
 	<blocked dx="2" dy="4" block="false" />
 	<blocked dx="-1" dy="2" block="false" />
-	<blocked dx="-3" dy="1" block="false" />
 	<blocked dx="-2" dy="2" block="false" />
 	<blocked dx="-1" dy="3" block="false" />
 	<blocked dx="1" dy="4" block="false" />
@@ -60,17 +64,13 @@
 	<blocked dx="-1" dy="-5" block="false" />
 	<blocked dx="0" dy="-4" block="false" />
 	<blocked dx="1" dy="-3" block="false" />
-	<blocked dx="2" dy="-2" block="false" />
 	<blocked dx="4" dy="1" block="false" />
-	<blocked dx="3" dy="-1" block="false" />
 	<blocked dx="4" dy="2" block="false" />
 	<blocked dx="4" dy="0" block="false" />
 	<blocked dx="4" dy="3" block="false" />
 	<blocked dx="4" dy="4" block="false" />
 	<blocked dx="-2" dy="-6" block="false" />
 	<blocked dx="-3" dy="-6" block="false" />
-	<blocked dx="-4" dy="-1" block="false" />
-	<blocked dx="-4" dy="0" block="false" />
 	<blocked dx="-4" dy="-2" block="false" />
 	<blocked dx="-4" dy="-3" block="false" />
 	<blocked dx="-4" dy="-4" block="false" />
@@ -78,32 +78,31 @@
 	<blocked dx="-4" dy="-6" block="false" />
 	<blocked dx="-1" dy="1" block="false" />
 
+
 	<door dx="-1" dy="1" />
 
-	<constructionStack dx="2" dy="4" material="PLANK" buildrequired="5" />
-	<constructionStack dx="3" dy="4" material="STONE" buildrequired="3" />
+	<constructionStack dx="-2" dy="2" material="PLANK" buildrequired="5" />
+	<constructionStack dx="0" dy="3" material="STONE" buildrequired="3" />
 
-	<requestStack dx="1" dy="3" material="FISH" />
-	<requestStack dx="2" dy="3" material="MEAT" />
-	<requestStack dx="3" dy="3" material="BREAD" />
+	<requestStack dx="4" dy="4" material="FISH" />
+	<requestStack dx="4" dy="2" material="MEAT" />
+	<requestStack dx="4" dy="3" material="BREAD" />
 
-	<offerStack dx="-1" dy="1" material="GEMS" />
+	<offerStack dx="-1" dy="3" material="GEMS" />
 
-	<bricklayer dx="-3" dy="1" direction="NORTH_EAST" />
 	<bricklayer dx="0" dy="3" direction="NORTH_EAST" />
-	<bricklayer dx="2" dy="3" direction="NORTH_EAST" />
-	<bricklayer dx="1" dy="3" direction="NORTH_WEST" />
+	<bricklayer dx="-1" dy="2" direction="NORTH_EAST" />
 	<bricklayer dx="3" dy="3" direction="NORTH_WEST" />
 	<bricklayer dx="4" dy="2" direction="NORTH_WEST" />
-	<bricklayer dx="4" dy="1" direction="NORTH_WEST" />
 
 	<flag dx="-3" dy="-5" />
 
-	<buildmark dx="2" dy="4" />
-	<buildmark dx="-3" dy="1" />
-	<buildmark dx="4" dy="0" />
-	<buildmark dx="-2" dy="-6" />
-	<buildmark dx="-4" dy="-5" />
+	<buildmark dx="1" dy="2" />
+	<buildmark dx="2" dy="2" />
+	<buildmark dx="3" dy="0" />
+	<buildmark dx="1" dy="-3" />
+	<buildmark dx="-4" dy="-4" />
+	<buildmark dx="-3" dy="0" />
 
 
 	<image file="24" for="GUI" type="GUI" sequence="96" image="0" />
@@ -118,7 +117,7 @@
 	<job name="hide"				type="HIDE" 				successjob="waitHome" 			failjob="waitHome" />
 	<job name="waitHome" 			type="WAIT" 				successjob="checkHasStackSpace" failjob="hide" 		time="3" />
 
-	<job name="checkHasStackSpace"	type="NOT_FULL" 			successjob="checkHasFood" 		failjob="waitHome"	dx="-1" dy="1" />
+	<job name="checkHasStackSpace"	type="NOT_FULL" 			successjob="checkHasFood" 		failjob="waitHome"	dx="-1" dy="3" />
 	<job name="checkHasFood" 		type="TRY_TAKING_FOOD" 		successjob="startMining"		failjob="waitHome"  foodOrder="FISH,MEAT,BREAD"/>
 
 	<job name="startMining" 		type="TRY_TAKING_RESOURCE" 	successjob="successfulMining1" 	failjob="failedMining1" />
