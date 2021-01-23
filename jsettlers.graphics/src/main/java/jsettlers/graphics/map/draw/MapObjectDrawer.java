@@ -1285,12 +1285,29 @@ public class MapObjectDrawer {
 
 				switch (aBuilding.getBuildingVariant().getType()) {
 					case CHARCOAL_BURNER:
-						if (aBuilding.isAnimationRequested(0)) {
-							animationX = x + GfxConstants.XY_OFFSET_SMOKE_CHARCOALBURNER[0];
-							animationY = y + GfxConstants.XY_OFFSET_SMOKE_CHARCOALBURNER[1];
-							animationZ = GfxConstants.Z_SMOKE;
-							animationSequence = GfxConstants.SEQ_SMOKE[civilisationIndex];
-							drawSingleAnimation = true;
+						drawSingleAnimation = false;
+						int sX = x + GfxConstants.XY_OFFSET_SMOKE_CHARCOALBURNER[0];
+						int sY = y + GfxConstants.XY_OFFSET_SMOKE_CHARCOALBURNER[1];
+						float smokeZ = GfxConstants.Z_SMOKE;
+						Sequence<? extends Image> charcoalSmoke = this.imageProvider.getSettlerSequence(GfxConstants.FILE_BUILDING[civilisationIndex], GfxConstants.SEQ_SMOKE[civilisationIndex]);
+
+						for (int i = 0; i < aBuilding.getAnimationCount(); i++) {
+							if (aBuilding.isAnimationRequested(i)) {
+								if (i == 0) {
+									// draw starting smoke
+									int imageProgress = Math.min((int) (aBuilding.getAnimationProgress(i) * 7), 6);
+									draw(charcoalSmoke.getImageSafe(imageProgress, () -> "starting-smoke"), sX, sY, smokeZ, color);
+								} else if (i == 1) {
+									//draw smoke loop
+									int step = getAnimationStep(sX, sY) % 24;
+									aBuilding.getAnimationProgress(i); //update timer
+									draw(charcoalSmoke.getImageSafe(6 + step, () -> "loop-smoke"), sX, sY, smokeZ, color);
+								} else if (i == 2) {
+									//draw ending smoke
+									int imageProgress = Math.min((int) (aBuilding.getAnimationProgress(i) * 7 + 29), 35);
+									draw(charcoalSmoke.getImageSafe(imageProgress, () -> "ending-smoke"), sX, sY, smokeZ, color);
+								}
+							}
 						}
 						break;
 					case BAKER:

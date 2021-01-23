@@ -111,12 +111,12 @@
     <job name="resetandgohome2" type="SMOKE_OFF" successjob="gohome" failjob="gohome" dx="-3" dy="-4" />
     <job name="gohome" type="GO_TO" successjob="Z_walkB3" failjob="gohome_wait" dx="1" dy="2" />
     <!-- go home failed, retry -->
-    <job name="gohome_wait" type="WAIT" successjob="gohome" failjob="gohome_wait" time="1.0" />
+    <job name="gohome_wait" type="WAIT" successjob="gohome" failjob="gohome_wait" time="2.5" />
 
     <!-- arrive at front door => hide -->
     <job name="hide" type="HIDE" successjob="reset" failjob="gohome_wait" />
     <job name="reset" type="SET_MATERIAL" successjob="wait_at_home" failjob="wait_at_home" material="NO_MATERIAL" />
-    <job name="wait_at_home" type="WAIT" successjob="checkcoal" failjob="wait_at_home" time="1" />
+    <job name="wait_at_home" type="WAIT" successjob="checkcoal" failjob="wait_at_home" time="2.5" />
 
     <job name="checkcoal" type="NOT_FULL" successjob="A_reset" failjob="wait_at_home" dx="3" dy="4" />
 
@@ -140,7 +140,9 @@
     <job name="A_walkB6" type="WALK" successjob="A_hide" failjob="resetandgohome" direction="NORTH_WEST" />
 
     <job name="A_hide" type="HIDE" successjob="A_wait" failjob="resetandgohome" />
-    <job name="A_wait" type="WAIT" successjob="B_reset" failjob="resetandgohome" time=".5" />
+    <job name="A_wait" type="WAIT" successjob="smoke_on" failjob="resetandgohome" time="0.5" />
+    <job name="smoke_on"	type="BUILDING_ANIMATION"	successjob="A_wait2" 	failjob="resetandgohome" takeMaterialFromMap="true" />
+    <job name="A_wait2" type="WAIT" successjob="B_reset" failjob="resetandgohome" time="2" />
 
     <job name="B_reset" type="SET_MATERIAL" successjob="B_available" failjob="gohome" material="NO_MATERIAL" />
     <job name="B_available" type="AVAILABLE" successjob="B_show" failjob="A_wait" dx="6" dy="4" material="PLANK" />
@@ -162,13 +164,10 @@
     <job name="B_walkB6" type="WALK" successjob="B_hide" failjob="resetandgohome" direction="NORTH_WEST" />
 
     <job name="B_hide" type="HIDE" successjob="B_wait" failjob="resetandgohome" />
-    <job name="B_wait" type="WAIT" successjob="smoke_on" failjob="resetandgohome" time=".5" />
-
-    <job name="smoke_on"	type="BUILDING_ANIMATION"	successjob="B_wait2" 	failjob="resetandgohome" takeMaterialFromMap="true" />
-    <job name="B_wait2" type="WAIT" successjob="C_reset" failjob="resetandgohome" time=".5" />
+    <job name="B_wait" type="WAIT" successjob="C_reset" failjob="resetandgohome" time="2.5" />
 
     <job name="C_reset" type="SET_MATERIAL" successjob="C_available" failjob="gohome" material="NO_MATERIAL" />
-    <job name="C_available" type="AVAILABLE" successjob="C_show" failjob="B_wait2" dx="6" dy="4" material="PLANK" />
+    <job name="C_available" type="AVAILABLE" successjob="C_show" failjob="B_wait" dx="6" dy="4" material="PLANK" />
     <job name="C_show" type="SHOW" successjob="C_walkA1" failjob="gohome" dx="0" dy="1" />
     <job name="C_walkA1" type="WALK" successjob="C_walkA2" failjob="gohome" direction="SOUTH_EAST" />
     <job name="C_walkA2" type="WALK" successjob="C_walkA3" failjob="gohome" direction="SOUTH_EAST" />
@@ -187,7 +186,7 @@
     <job name="C_walkB6" type="WALK" successjob="C_hide" failjob="resetandgohome" direction="NORTH_WEST" />
 
     <job name="C_hide" type="HIDE" successjob="C_wait" failjob="resetandgohome" />
-    <job name="C_wait" type="WAIT" successjob="D_reset" failjob="resetandgohome" time=".5" />
+    <job name="C_wait" type="WAIT" successjob="D_reset" failjob="resetandgohome" time="2.5" />
 
     <job name="D_reset" type="SET_MATERIAL" successjob="D_available" failjob="gohome" material="NO_MATERIAL" />
     <job name="D_available" type="AVAILABLE" successjob="D_show" failjob="C_wait" dx="6" dy="4" material="PLANK" />
@@ -209,7 +208,7 @@
     <job name="D_walkB6" type="WALK" successjob="D_hide" failjob="resetandgohome" direction="NORTH_WEST" />
 
     <job name="D_hide" type="HIDE" successjob="D_wait" failjob="resetandgohome" />
-    <job name="D_wait" type="WAIT" successjob="Z_reset" failjob="resetandgohome" time="5" />
+    <job name="D_wait" type="WAIT" successjob="Z_reset" failjob="resetandgohome" time="6.5" />
 
     <job name="Z_reset" type="SET_MATERIAL" successjob="Z_show" failjob="resetandgohome" material="COAL" />
     <job name="Z_show" type="SHOW" successjob="Z_walkA1" failjob="resetandgohome" dx="0" dy="1" />

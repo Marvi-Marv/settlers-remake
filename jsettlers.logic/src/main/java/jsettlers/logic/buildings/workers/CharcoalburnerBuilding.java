@@ -13,10 +13,9 @@ import jsettlers.logic.player.Player;
 public final class CharcoalburnerBuilding extends WorkerAnimationBuilding  {
     private static final long serialVersionUID = -2652624466987173515L;
 
-    //{DURATION_SMOKE}
-    private static final int[] DURATIONS = {40000};
-    //TODO: create transition for smoke start, running, end in order to have fluent animation
-    private static final int[] TRANSITIONS = {};
+    //{DURATION_SMOKE} 1 coal needs 40 secs in the original game
+    private static final int[] DURATIONS = {1000, 38000, 1000};
+    private static final int[] TRANSITIONS = {1000, 38000};
 
     public CharcoalburnerBuilding(EBuildingType type, Player player, ShortPoint2D position, IBuildingsGrid buildingsGrid) {
         super(type, player, position, buildingsGrid);
