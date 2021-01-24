@@ -65,6 +65,7 @@ import jsettlers.common.movable.EDirection;
 import jsettlers.common.movable.EEffectType;
 import jsettlers.common.movable.EMovableType;
 import jsettlers.common.movable.IGraphicsMovable;
+import jsettlers.common.player.ECivilisation;
 import jsettlers.common.player.EWinState;
 import jsettlers.common.player.IPlayer;
 import jsettlers.common.position.MutablePoint2D;
@@ -1351,13 +1352,18 @@ public final class MainGrid implements Serializable {
 
 		@Override
 		public boolean dropMaterial(ShortPoint2D position, EMaterialType materialType, boolean offer, boolean forced) {
+			return dropMaterial(position, materialType, offer, forced, null);
+		}
+
+		@Override
+		public boolean dropMaterial(ShortPoint2D position, EMaterialType materialType, boolean offer, boolean forced, ECivilisation civilisation) {
 			boolean successful;
 
 			if (forced) {
-				position = mapObjectsManager.pushMaterialForced(position.x, position.y, materialType);
+				position = mapObjectsManager.pushMaterialForced(position.x, position.y, materialType, civilisation);
 				successful = position != null;
 			} else {
-				successful = mapObjectsManager.pushMaterial(position.x, position.y, materialType);
+				successful = mapObjectsManager.pushMaterial(position.x, position.y, materialType, civilisation);
 			}
 
 			if (successful && offer) {

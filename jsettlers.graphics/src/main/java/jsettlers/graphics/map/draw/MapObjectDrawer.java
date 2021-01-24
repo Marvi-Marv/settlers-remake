@@ -1217,7 +1217,7 @@ public class MapObjectDrawer {
 
 		byte elements = object.getSize();
 		if (elements > 0) {
-			drawStackAtScreen(x, y, object.getMaterialType(), elements, color);
+			drawStackAtScreen(x, y, object, elements, color);
 		}
 	}
 
@@ -1233,8 +1233,12 @@ public class MapObjectDrawer {
 	 * @param count
 	 * 		The number of elements on the stack
 	 */
-	private void drawStackAtScreen(int x, int y, EMaterialType material, int count, float color) {
+	private void drawStackAtScreen(int x, int y, IStackMapObject object, int count, float color) {
+		EMaterialType material = object.getMaterialType();
 		int stackIndex = material.getStackIndex();
+		if (object.getCivilisation() != null) {
+			stackIndex = material.getCivilisationStackIndex(object.getCivilisation());
+		}
 
 		Sequence<? extends Image> seq = this.imageProvider.getSettlerSequence(OBJECTS_FILE, stackIndex);
 		draw(seq.getImageSafe(count - 1, () -> Labels.getName(material, count != 1) + "@" + count), x, y, 0, color);

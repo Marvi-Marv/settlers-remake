@@ -22,6 +22,7 @@ import jsettlers.common.landscape.EResourceType;
 import jsettlers.common.material.EMaterialType;
 import jsettlers.common.material.ESearchType;
 import jsettlers.common.movable.EDirection;
+import jsettlers.common.player.ECivilisation;
 import jsettlers.common.position.ShortPoint2D;
 import jsettlers.logic.map.grid.partition.manager.manageables.IManageableBearer;
 import jsettlers.logic.map.grid.partition.manager.manageables.IManageableBricklayer;
@@ -83,6 +84,8 @@ public abstract class AbstractStrategyGrid implements Serializable {
 	 *            If true, the material will be put on the grid on the closest free location.
 	 */
 	public abstract boolean dropMaterial(ShortPoint2D pos, EMaterialType materialType, boolean offer, boolean forced);
+
+	public abstract boolean dropMaterial(ShortPoint2D pos, EMaterialType materialType, boolean offer, boolean forced, ECivilisation civilisation);
 
 	/**
 	 *

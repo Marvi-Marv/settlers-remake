@@ -15,6 +15,7 @@
 package jsettlers.common.mapobject;
 
 import jsettlers.common.material.EMaterialType;
+import jsettlers.common.player.ECivilisation;
 
 /**
  * Specifies a stack on the map.
@@ -37,4 +38,7 @@ public interface IStackMapObject extends IMapObject {
 	 * @return size of stack.
 	 */
 	byte getSize();
+
+
+	ECivilisation getCivilisation();
 }

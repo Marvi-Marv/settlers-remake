@@ -26,6 +26,7 @@ import jsettlers.common.mapobject.IAttackableTowerMapObject;
 import jsettlers.common.material.EMaterialType;
 import jsettlers.common.material.ESearchType;
 import jsettlers.common.player.IPlayer;
+import jsettlers.common.player.ECivilisation;
 import jsettlers.common.position.RelativePoint;
 import jsettlers.common.position.ShortPoint2D;
 import jsettlers.logic.buildings.stack.IStackSizeSupplier;
@@ -476,12 +477,16 @@ public final class MapObjectsManager implements IScheduledTimerable, Serializabl
 	}
 
 	public boolean pushMaterial(int x, int y, EMaterialType materialType) {
+		return pushMaterial(x, y, materialType, null);
+	}
+
+	public boolean pushMaterial(int x, int y, EMaterialType materialType, ECivilisation civilisation) {
 		assert materialType != null : "material type can never be null here";
 
 		StackMapObject stackObject = getStackAtPosition(x, y, materialType);
 
 		if (stackObject == null) {
-			grid.addMapObject(x, y, new StackMapObject(materialType, (byte) 1));
+			grid.addMapObject(x, y, new StackMapObject(materialType, (byte) 1, civilisation));
 			grid.setProtected(x, y, true);
 			return true;
 		} else {
@@ -494,12 +499,12 @@ public final class MapObjectsManager implements IScheduledTimerable, Serializabl
 		}
 	}
 
-	public ShortPoint2D pushMaterialForced(int x, int y, EMaterialType materialType) {
+	public ShortPoint2D pushMaterialForced(int x, int y, EMaterialType materialType, ECivilisation civilisation) {
 		return HexGridArea.stream(x, y, 0, 200)
 				.filterBounds(grid.getWidth(), grid.getHeight())
 				.filter((currX, currY) -> canForcePushMaterial(currX, currY, materialType))
 				.iterateForResult((currX, currY) -> {
-					pushMaterial(currX, currY, materialType);
+					pushMaterial(currX, currY, materialType, civilisation);
 					return Optional.of(new ShortPoint2D(currX, currY));
 				}).orElse(null);
 	}

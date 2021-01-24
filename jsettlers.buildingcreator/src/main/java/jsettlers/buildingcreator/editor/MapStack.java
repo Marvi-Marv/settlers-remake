@@ -59,4 +59,7 @@ public class MapStack implements IStackMapObject {
 		return type == getObjectType() ? this : null;
 	}
 
+	public final ECivilisation getCivilisation() {
+		return null;
+	}
 }

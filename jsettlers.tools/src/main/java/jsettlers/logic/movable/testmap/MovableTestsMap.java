@@ -36,6 +36,7 @@ import jsettlers.common.material.ESearchType;
 import jsettlers.common.movable.EDirection;
 import jsettlers.common.movable.EMovableType;
 import jsettlers.common.movable.IGraphicsMovable;
+import jsettlers.common.player.ECivilisation;
 import jsettlers.common.player.IPlayer;
 import jsettlers.common.position.ShortPoint2D;
 import jsettlers.logic.constants.MatchConstants;
@@ -95,7 +96,7 @@ public class MovableTestsMap implements IGraphicsGrid, IAStarPathMap {
 	@Override
 	public IMapObject getMapObjectsAt(int x, int y) {
 		if (materialTypeMap[x][y] != null && materialAmountMap[x][y] > 0) {
-			return new StackMapObject(materialTypeMap[x][y], materialAmountMap[x][y]);
+			return new StackMapObject(materialTypeMap[x][y], materialAmountMap[x][y], null);
 		} else {
 			return null;
 		}
@@ -248,6 +249,16 @@ public class MovableTestsMap implements IGraphicsGrid, IAStarPathMap {
 
 		@Override
 		public boolean dropMaterial(ShortPoint2D pos, EMaterialType materialType, boolean offer, boolean forced) {
+			materialTypeMap[pos.x][pos.y] = materialType;
+			materialAmountMap[pos.x][pos.y]++;
+
+			materials.add(pos);
+
+			return true;
+		}
+
+		@Override
+		public boolean dropMaterial(ShortPoint2D pos, EMaterialType materialType, boolean offer, boolean forced, ECivilisation civilisation) {
 			materialTypeMap[pos.x][pos.y] = materialType;
 			materialAmountMap[pos.x][pos.y]++;
 

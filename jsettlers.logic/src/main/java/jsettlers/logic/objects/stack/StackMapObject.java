@@ -17,6 +17,7 @@ package jsettlers.logic.objects.stack;
 import jsettlers.common.mapobject.EMapObjectType;
 import jsettlers.common.mapobject.IStackMapObject;
 import jsettlers.common.material.EMaterialType;
+import jsettlers.common.player.ECivilisation;
 import jsettlers.logic.constants.Constants;
 import jsettlers.logic.map.grid.objects.AbstractHexMapObject;
 
@@ -30,11 +31,13 @@ public final class StackMapObject extends AbstractHexMapObject implements IStack
 	private static final long serialVersionUID = -5471566113368524172L;
 
 	private final byte materialType;
+	private final ECivilisation civilisation;
 	private byte size;
 	private byte markedStolen = 0;
 
-	public StackMapObject(EMaterialType materialType, byte size) {
+	public StackMapObject(EMaterialType materialType, byte size, ECivilisation civilisation) {
 		this.materialType = materialType.ordinal;
+		this.civilisation = civilisation;
 		this.size = size;
 	}
 
@@ -105,4 +108,7 @@ public final class StackMapObject extends AbstractHexMapObject implements IStack
 		return false;
 	}
 
+	public final ECivilisation getCivilisation() {
+		return civilisation;
+	}
 }

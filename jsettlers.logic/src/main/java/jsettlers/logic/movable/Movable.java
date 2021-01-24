@@ -203,7 +203,12 @@ public abstract class Movable implements ILogicMovable, FoWTask {
 					if (takeDropMaterial == null || !takeDropMaterial.isDroppable()) return;
 
 					mov.setMaterial(EMaterialType.NO_MATERIAL);
-					mov.grid.dropMaterial(mov.position, takeDropMaterial, offerMaterial.test(mov), false);
+
+					if (EMaterialType.WEAPONS.contains(takeDropMaterial)) {
+						mov.grid.dropMaterial(mov.position, takeDropMaterial, offerMaterial.test(mov), false, mov.player.getCivilisation());
+					} else {
+						mov.grid.dropMaterial(mov.position, takeDropMaterial, offerMaterial.test(mov), false, null);
+					}
 				}),
 				playAction(EMovableAction.RAISE_UP, mov -> Constants.MOVABLE_BEND_DURATION)
 		);

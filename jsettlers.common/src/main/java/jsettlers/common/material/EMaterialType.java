@@ -19,6 +19,7 @@ import java.util.EnumSet;
 import jsettlers.common.images.EImageLinkType;
 import jsettlers.common.images.ImageLink;
 import jsettlers.common.images.OriginalImageLink;
+import jsettlers.common.player.ECivilisation;
 
 /**
  * Enum to define all material types.
@@ -27,7 +28,7 @@ import jsettlers.common.images.OriginalImageLink;
  */
 public enum EMaterialType {
 	AXE((short) 46, 3, 153, true, 18, false),
-	BOW((short) 63, 14, 114, true, 14, false),
+	BOW((short) 63, 14, 114, true, 14, false, new short[]{63, 64, 65, 63}),
 	BLADE((short) 55, 3, 138, true, 16, false),
 	BREAD((short) 49, 3, 186, true, 6, true),
 	COAL((short) 34, 3, 144, true, 5, true),
@@ -46,9 +47,9 @@ public enum EMaterialType {
 	PLANK((short) 33, 3, 168, true, 0, false),
 	SAW((short) 54, 3, 177, true, 20, false),
 	SCYTHE((short) 56, 3, 165, true, 22, false),
-	SPEAR((short) 60, 14, 117, true, 15, false),
+	SPEAR((short) 60, 14, 117, true, 15, false, new short[]{60, 62, 61, 60}),
 	STONE((short) 43, 3, 174, true, 1, false),
-	SWORD((short) 59, 14, 111, true, 13, false),
+	SWORD((short) 59, 14, 111, true, 13, false, new short[]{59, 57, 58, 59}),
 	TRUNK((short) 41, 3, 171, true, 2, false),
 	WATER((short) 77, 3, 156, true, 12, true),
 	WINE((short) 69, 14, 123, true, 25, false),
@@ -126,14 +127,20 @@ public enum EMaterialType {
 	private final int defaultPrioIdx;
 	private final boolean distributionConfigurable;
 	private final OriginalImageLink imageLink;
+	private final short[] civilisationIndex;
 
 	EMaterialType(short stackIndex, int guiFile, int guiBase, boolean droppable, int defaultPrioIdx, boolean distributionConfigurable) {
+		this(stackIndex, guiFile, guiBase, droppable, defaultPrioIdx, distributionConfigurable, null);
+	}
+
+	EMaterialType(short stackIndex, int guiFile, int guiBase, boolean droppable, int defaultPrioIdx, boolean distributionConfigurable, short[] civilisationIndex) {
 		this.stackIndex = stackIndex;
 		this.defaultPrioIdx = defaultPrioIdx;
 		this.distributionConfigurable = distributionConfigurable;
 		this.ordinal = (byte) super.ordinal();
 		this.droppable = droppable;
-		imageLink = new OriginalImageLink(EImageLinkType.GUI, guiFile, guiBase, 0);
+		this.imageLink = new OriginalImageLink(EImageLinkType.GUI, guiFile, guiBase, 0);
+		this.civilisationIndex = civilisationIndex;
 	}
 
 	/**
@@ -166,4 +173,7 @@ public enum EMaterialType {
 		return distributionConfigurable;
 	}
 
+	public short getCivilisationStackIndex(ECivilisation civilisation) {
+		return this.civilisationIndex[civilisation.ordinal];
+	}
 }
